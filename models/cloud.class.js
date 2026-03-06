@@ -1,11 +1,15 @@
 import { MovableObject } from "./movable-object.class.js";
 
-export class Chicken extends MovableObject {
+export class Cloud extends MovableObject {
+
+    y = 20;
+    width = 500;
+    height = 250;
+
     constructor() {
         super().loadImage(
-            "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
+            "img/5_background/layers/4_clouds/1.png",
         );
-
         this.x = 200 + Math.random() * 500;
     }
 }

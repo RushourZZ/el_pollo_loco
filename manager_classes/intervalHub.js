@@ -1,4 +1,4 @@
-class IntervalHub { 
+export class IntervalHub { 
 
 static allIntervals = [];
 

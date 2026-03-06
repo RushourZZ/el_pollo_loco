@@ -1,31 +1,46 @@
-class World {
+import { Character } from "./character.class.js";
+import { Chicken } from "./chicken.class.js";
+import { Cloud } from "./cloud.class.js";
+import { BackgroundObject } from "./background-object.class.js";
+import { ImageHub } from "../manager_classes/imageHub.js";
+
+export class World {
     character = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
+    enemies = [new Chicken(), new Chicken(), new Chicken()];
+    clouds = [new Cloud()];
+    backgroundObjects = [
+        new BackgroundObject(ImageHub.BACKGROUND_LAYERS_CLOUDS.third_layer[0], 0, 100)
     ];
     canvas;
     ctx;
 
-    constructor(canvas){
+    constructor(canvas) {
         this.ctx = canvas.getContext("2d");
-        this.canvas = canvas
+        this.canvas = canvas;
         this.draw();
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.height, this.character.width);
 
-        this.enemies.forEach(enemy => {
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.height, enemy.width);
-        });
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.backgroundObjects);
 
         // ? Draw wird immer wieder neu aufgerufen
         let self = this;
-        requestAnimationFrame(function(){
+        requestAnimationFrame(function () {
             self.draw();
         });
+    }
+    addObjectsToMap(objects) {
+        objects.forEach((o) => {
+            this.addToMap(o);
+        });
+    }
+
+    addToMap(mo) {
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
     }
 }

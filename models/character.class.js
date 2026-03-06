@@ -1,14 +1,11 @@
-class Character extends MovableObject {
-   
-constructor(){
-    super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
-    
-}
+import { MovableObject } from "./movable-object.class.js";
 
+export class Character extends MovableObject {
+    constructor() {
+        super().loadImage(
+            "img/2_character_pepe/1_idle/idle/I-1.png",
+        );
+    }
 
-
-
-    jump(){
-
-    };
+    jump() {}
 }
