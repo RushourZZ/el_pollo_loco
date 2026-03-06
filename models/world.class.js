@@ -9,7 +9,9 @@ export class World {
     enemies = [new Chicken(), new Chicken(), new Chicken()];
     clouds = [new Cloud()];
     backgroundObjects = [
-        new BackgroundObject(ImageHub.BACKGROUND_LAYERS_CLOUDS.third_layer[0], 0, 100)
+        new BackgroundObject(ImageHub.BACKGROUND_LAYERS.third_layer[0], 0),
+        new BackgroundObject(ImageHub.BACKGROUND_LAYERS.second_layer[0], 0),
+        new BackgroundObject(ImageHub.BACKGROUND_LAYERS.first_layer[0], 0),
     ];
     canvas;
     ctx;

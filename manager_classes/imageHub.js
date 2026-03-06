@@ -134,7 +134,7 @@ export class ImageHub {
         ],
     };
 
-    static BACKGROUND_LAYERS_CLOUDS = {
+    static BACKGROUND_LAYERS = {
         first_layer: [
             "img/5_background/layers/1_first_layer/1.png",
             "img/5_background/layers/1_first_layer/2.png",
