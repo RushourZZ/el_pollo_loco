@@ -13,16 +13,24 @@ export class Chicken extends MovableObject {
         this.loadImages(ImageHub.ENEMIES_CHICKEN_NORMAL.walk);
 
         this.x = 200 + Math.random() * 500;
-
+        this.speed = 0.15 + Math.random() * 0.5;
         this.animate();
     }
 
     animate() {
+        IntervalHub.startInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+
         IntervalHub.startInterval(() => {
             let i =
                 this.currentImage % ImageHub.ENEMIES_CHICKEN_NORMAL.walk.length;
             this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_NORMAL.walk[i]];
             this.currentImage++;
         }, 7800 / 60);
+    }
+    
+    moveLeft() {
+        this.x -= this.speed;
     }
 }
