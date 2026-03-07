@@ -5,9 +5,12 @@ export class Character extends MovableObject {
 height = 280;
 y = 155;
     constructor() {
-        super().loadImage(
+        super();
+        this.loadImage(
             ImageHub.CHARACTER.idle[0],
         );
+
+        this.loadImages(ImageHub.CHARACTER.idle);
     }
 
     jump() {}
