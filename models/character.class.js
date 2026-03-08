@@ -33,10 +33,12 @@ export class Character extends MovableObject {
         IntervalHub.startInterval(() => {
             if(this.world.keyboard.RIGHT){
                 this.x += this.speed;
+                this.otherDirection = false;
                 this.characterAnimation(ImageHub.CHARACTER.walk);
             }
             else if(this.world.keyboard.LEFT){
                 this.x -= this.speed;
+                this.otherDirection = true;
                 this.characterAnimation(ImageHub.CHARACTER.walk);
             }
             else if(this.world.keyboard.UP){
