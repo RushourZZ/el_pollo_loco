@@ -44,6 +44,8 @@ export class Character extends MovableObject {
             else if(this.world.keyboard.UP){
                 this.characterAnimation(ImageHub.CHARACTER.jump);
             }
+
+            this.world.camera_x = -this.x;
         }, 2000 / 60);
     }
 
