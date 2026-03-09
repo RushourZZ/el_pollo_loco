@@ -7,37 +7,13 @@ export class Endboss extends MovableObject {
     height = 500;
     width = 300;
     y = -10;
-// #region endboss images
-    IMAGES_WALKING = [
-        ImageHub.ENEMIE_BOSS_CHICKEN.walk[0],
-        ImageHub.ENEMIE_BOSS_CHICKEN.walk[1],
-        ImageHub.ENEMIE_BOSS_CHICKEN.walk[2],
-    ];
 
-    IMAGES_HURT = [
-        ImageHub.ENEMIE_BOSS_CHICKEN.hurt[0],
-        ImageHub.ENEMIE_BOSS_CHICKEN.hurt[1],
-        ImageHub.ENEMIE_BOSS_CHICKEN.hurt[2],
-    ];
-
-    IMAGES_DEAD = [
-        ImageHub.ENEMIE_BOSS_CHICKEN.dead[0],
-        ImageHub.ENEMIE_BOSS_CHICKEN.dead[1],
-        ImageHub.ENEMIE_BOSS_CHICKEN.dead[2],
-    ];
-
-    IMAGES_ALERT = [
-        ImageHub.ENEMIE_BOSS_CHICKEN.alert[0],
-        ImageHub.ENEMIE_BOSS_CHICKEN.alert[1],
-        ImageHub.ENEMIE_BOSS_CHICKEN.alert[2],
-    ];
-// #endregion endboss images 
     constructor() {
         super();
         this.loadImage(ImageHub.ENEMIE_BOSS_CHICKEN.walk[0]);
-        this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_HURT);  
-        this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(ImageHub.ENEMIE_BOSS_CHICKEN.walk);
+        this.loadImages(ImageHub.ENEMIE_BOSS_CHICKEN.hurt);  
+        this.loadImages(ImageHub.ENEMIE_BOSS_CHICKEN.alert);
         this.x = 700;
         this.animate();
     }
@@ -53,7 +29,7 @@ export class Endboss extends MovableObject {
 
     animate() {
         IntervalHub.startInterval(() => {
-            this.endbossAnimation(this.IMAGES_ALERT);
+            this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.walk);
         }, 7000 / 60)
 
        

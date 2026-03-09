@@ -29,12 +29,8 @@ export class Character extends MovableObject {
     //#region character animation
     animate() {
 
-        
         IntervalHub.startInterval(() => {
-
-            
                 this.characterAnimation(ImageHub.CHARACTER.idle);
-            
         }, 7800 / 60);
 
         IntervalHub.startInterval(() => {
@@ -48,7 +44,7 @@ export class Character extends MovableObject {
                 this.otherDirection = true;
                 this.characterAnimation(ImageHub.CHARACTER.walk);
             }
-            else if(this.world.keyboard.UP){
+            else if(this.world.keyboard.UP || this.isAboveGround()){
                 this.characterAnimation(ImageHub.CHARACTER.jump);
             }
 
