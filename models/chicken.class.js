@@ -2,6 +2,7 @@ import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
+
 export class Chicken extends MovableObject {
     y = 370;
     height = 70;
@@ -29,7 +30,7 @@ export class Chicken extends MovableObject {
             this.currentImage++;
         }, 7800 / 60);
     }
-    
+
     moveLeft() {
         this.x -= this.speed;
     }

@@ -1,22 +1,19 @@
 import { Character } from "./character.class.js";
-import { Chicken } from "./chicken.class.js";
-import { Cloud } from "./cloud.class.js";
 import { BackgroundObject } from "./background-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
+import { level1 } from "../levels/level1.js";
 
 
 export class World {
     character = new Character();
-    enemies = [new Chicken(), new Chicken(), new Chicken()];
-    clouds = [new Cloud()];
-    backgroundObjects = [
-        
-        new BackgroundObject(ImageHub.BACKGROUND_LAYERS.air[0], 0),
-        new BackgroundObject(ImageHub.BACKGROUND_LAYERS.third_layer[0], 0),
-        new BackgroundObject(ImageHub.BACKGROUND_LAYERS.second_layer[0], 0),
-        new BackgroundObject(ImageHub.BACKGROUND_LAYERS.first_layer[0], 0),
-        
-    ];
+    level = level1;
+    enemies = level1.enemies;
+    clouds = level1.clouds;
+    backgroundObjects = level1.backgroundObjects;
+
+
+
+
     canvas;
     ctx;
     keyboard;
@@ -57,10 +54,10 @@ export class World {
         this.ctx.translate(this.camera_x, 0);
 
 
-        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.enemies);
 
         this.ctx.translate(-this.camera_x, 0);
         

@@ -2,6 +2,7 @@ import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
+
 export class Character extends MovableObject {
     height = 280;
     y = 155;
@@ -31,12 +32,12 @@ export class Character extends MovableObject {
         }, 7800 / 60);
 
         IntervalHub.startInterval(() => {
-            if(this.world.keyboard.RIGHT){
+            if(this.world.keyboard.RIGHT  && this.x < this.world.level.level_end_x){
                 this.x += this.speed;
                 this.otherDirection = false;
                 this.characterAnimation(ImageHub.CHARACTER.walk);
             }
-            else if(this.world.keyboard.LEFT){
+            else if(this.world.keyboard.LEFT && this.x > 100){
                 this.x -= this.speed;
                 this.otherDirection = true;
                 this.characterAnimation(ImageHub.CHARACTER.walk);
@@ -45,7 +46,7 @@ export class Character extends MovableObject {
                 this.characterAnimation(ImageHub.CHARACTER.jump);
             }
 
-            this.world.camera_x = -this.x;
+            this.world.camera_x = -this.x + 100;
         }, 2000 / 60);
     }
 
