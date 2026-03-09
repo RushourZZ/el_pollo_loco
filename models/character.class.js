@@ -2,7 +2,6 @@ import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
-
 export class Character extends MovableObject {
     height = 280;
     y = 155;
@@ -23,32 +22,28 @@ export class Character extends MovableObject {
         this.animate();
     }
 
-
-
-
     //#region character animation
     animate() {
-
         IntervalHub.startInterval(() => {
-                this.characterAnimation(ImageHub.CHARACTER.idle);
+            this.characterAnimation(ImageHub.CHARACTER.idle);
         }, 7800 / 60);
 
         IntervalHub.startInterval(() => {
-            if(this.world.keyboard.RIGHT  && this.x < this.world.level.level_end_x){
-                this.x += this.speed;
-                this.otherDirection = false;
+            if (
+                this.world.keyboard.RIGHT &&
+                this.x < this.world.level.level_end_x
+            ) {
+                this.moveRight();
                 this.characterAnimation(ImageHub.CHARACTER.walk);
             }
-            if(this.world.keyboard.LEFT && this.x > 100){
-                this.x -= this.speed;
-                this.otherDirection = true;
+            if (this.world.keyboard.LEFT && this.x > 100) {
+                this.moveLeft();
                 this.characterAnimation(ImageHub.CHARACTER.walk);
             }
-            if(this.world.keyboard.UP && !this.isAboveGround()){
-                this.speedY = 20
-                
+            if (this.world.keyboard.UP && !this.isAboveGround()) {
+                this.jump();
             }
-            if(this.isAboveGround()){
+            if (this.isAboveGround()) {
                 this.characterAnimation(ImageHub.CHARACTER.jump);
             }
 
@@ -56,13 +51,11 @@ export class Character extends MovableObject {
         }, 2000 / 60);
     }
 
-    characterAnimation(images){
+    characterAnimation(images) {
         let i = this.currentImage % images.length;
-            this.img = this.imageCache[images[i]];
-            this.currentImage++;
+        this.img = this.imageCache[images[i]];
+        this.currentImage++;
     }
-
-    jump() {}
 
     //#endregion character animation
 }

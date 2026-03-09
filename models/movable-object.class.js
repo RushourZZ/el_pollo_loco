@@ -1,6 +1,5 @@
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
-
 export class MovableObject {
     x = 120;
     y = 280;
@@ -15,8 +14,8 @@ export class MovableObject {
     acceleration = 2;
 
     applyGravity() {
-        IntervalHub.startInterval(() =>{
-            if(this.isAboveGround() || this.speedY > 0){
+        IntervalHub.startInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -40,10 +39,17 @@ export class MovableObject {
         });
     }
 
-    moveRight() {}
+    moveRight() {
+        this.x += this.speed;
+        this.otherDirection = false;
+    }
 
     moveLeft() {
-        IntervalHub.startInterval(() => { this.x -= 0.15; }, 1000 / 60);
+        this.x -= this.speed;
+        this.otherDirection = true;
+    }
+
+    jump() {
+        this.speedY = 30;
     }
 }
-
