@@ -11,6 +11,21 @@ export class MovableObject {
     imageCache = {};
     speed = 0.15;
     otherDirection = false;
+    speedY = 0;
+    acceleration = 2;
+
+    applyGravity() {
+        IntervalHub.startInterval(() =>{
+            if(this.isAboveGround()){
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 60);
+    }
+
+    isAboveGround() {
+        return this.y < 180;
+    }
 
     loadImage(path) {
         this.img = new Image();

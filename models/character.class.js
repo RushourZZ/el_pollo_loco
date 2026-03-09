@@ -8,7 +8,7 @@ export class Character extends MovableObject {
     y = 155;
     world;
     speed = 10;
-    
+
     constructor() {
         super();
         this.loadImage(ImageHub.CHARACTER.idle[0]);
@@ -18,6 +18,7 @@ export class Character extends MovableObject {
         this.loadImages(ImageHub.CHARACTER.jump);
         this.loadImages(ImageHub.CHARACTER.hurt);
         this.loadImages(ImageHub.CHARACTER.dead);
+        this.applyGravity();
 
         this.animate();
     }
