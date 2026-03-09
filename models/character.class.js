@@ -39,12 +39,16 @@ export class Character extends MovableObject {
                 this.otherDirection = false;
                 this.characterAnimation(ImageHub.CHARACTER.walk);
             }
-            else if(this.world.keyboard.LEFT && this.x > 100){
+            if(this.world.keyboard.LEFT && this.x > 100){
                 this.x -= this.speed;
                 this.otherDirection = true;
                 this.characterAnimation(ImageHub.CHARACTER.walk);
             }
-            else if(this.world.keyboard.UP || this.isAboveGround()){
+            if(this.world.keyboard.UP && !this.isAboveGround()){
+                this.speedY = 20
+                
+            }
+            if(this.isAboveGround()){
                 this.characterAnimation(ImageHub.CHARACTER.jump);
             }
 
