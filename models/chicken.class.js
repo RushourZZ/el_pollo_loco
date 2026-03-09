@@ -18,6 +18,8 @@ export class Chicken extends MovableObject {
         this.animate();
     }
 
+
+    //#region chicken animation
     animate() {
         IntervalHub.startInterval(() => {
             this.moveLeft();
@@ -34,4 +36,5 @@ export class Chicken extends MovableObject {
     moveLeft() {
         this.x -= this.speed;
     }
+    //#endregion chicken animation
 }

@@ -10,14 +10,12 @@ export class World {
     enemies = level1.enemies;
     clouds = level1.clouds;
     backgroundObjects = level1.backgroundObjects;
-
-
-
-
     canvas;
     ctx;
     keyboard;
     camera_x = 50;
+
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
@@ -27,6 +25,8 @@ export class World {
         this.setWorld();
     }
 
+
+    //#region draw objects
     drawBackgroundLoop() {
         const backgroundSegmentWidth = 719;
         const backgroundSegments = 10;
@@ -90,4 +90,5 @@ export class World {
             this.ctx.restore();
         }
     }
+    //#endregion draw objects
 }

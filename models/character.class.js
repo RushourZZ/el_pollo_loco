@@ -8,6 +8,7 @@ export class Character extends MovableObject {
     y = 155;
     world;
     speed = 10;
+    
     constructor() {
         super();
         this.loadImage(ImageHub.CHARACTER.idle[0]);
@@ -21,6 +22,10 @@ export class Character extends MovableObject {
         this.animate();
     }
 
+
+
+
+    //#region character animation
     animate() {
 
         
@@ -57,4 +62,6 @@ export class Character extends MovableObject {
     }
 
     jump() {}
+
+    //#endregion character animation
 }
