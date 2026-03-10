@@ -8,7 +8,9 @@ export class Character extends MovableObject {
     world;
     speed = 10;
     hasFrame = true;
-    
+    deathAnimationStarted = false;
+
+
     constructor() {
         super();
         this.loadImage(ImageHub.CHARACTER.idle[0]);
@@ -30,26 +32,42 @@ export class Character extends MovableObject {
         }, 7800 / 60);
 
         IntervalHub.startInterval(() => {
-            if (
-                this.world.keyboard.RIGHT &&
-                this.x < this.world.level.level_end_x
-            ) {
-                this.moveRight();
-                this.characterAnimation(ImageHub.CHARACTER.walk);
+            if (!this.isDead()) {
+                if (
+                    this.world.keyboard.RIGHT &&
+                    this.x < this.world.level.level_end_x
+                ) {
+                    this.moveRight();
+                }
+                if (this.world.keyboard.LEFT && this.x > 100) {
+                    this.moveLeft();
+                }
+                if (this.world.keyboard.UP && !this.isAboveGround()) {
+                    this.jump();
+                }
             }
-            if (this.world.keyboard.LEFT && this.x > 100) {
-                this.moveLeft();
-                this.characterAnimation(ImageHub.CHARACTER.walk);
-            }
-            if (this.world.keyboard.UP && !this.isAboveGround()) {
-                this.jump();
-            }
-            if (this.isAboveGround()) {
+
+            if (this.isDead()) {
+                this.checkDeath();
+            } else if (this.isHurt()) {
+                this.characterAnimation(ImageHub.CHARACTER.hurt);
+            } else if (this.isAboveGround()) {
                 this.characterAnimation(ImageHub.CHARACTER.jump);
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.characterAnimation(ImageHub.CHARACTER.walk);
             }
 
             this.world.camera_x = -this.x + 100;
         }, 2000 / 60);
+    }
+
+    isInIdleAnimation() {
+        return (
+            !this.isDead() &&
+            !this.world.keyboard.RIGHT &&
+            !this.world.keyboard.LEFT &&
+            !this.world.keyboard.UP
+        );
     }
 
     characterAnimation(images) {
@@ -58,5 +76,17 @@ export class Character extends MovableObject {
         this.currentImage++;
     }
 
+
+    checkDeath() {
+        if (this.deathAnimationStarted) return;
+        this.deathAnimationStarted = true;
+        IntervalHub.stopAllIntervals();
+    
+        ImageHub.CHARACTER.dead.forEach((images, i) => {
+            setTimeout(() => {
+                this.img = this.imageCache[images];
+            }, i * 150);
+        });
+    }
     //#endregion character animation
 }

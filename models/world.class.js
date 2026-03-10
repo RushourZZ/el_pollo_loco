@@ -29,10 +29,11 @@ export class World {
         IntervalHub.startInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    console.log("Collision detected");
+                    this.character.hit();
+                    console.log("Collision detected", this.character.energy);
                 }
             });
-        }, 1000 / 60);
+            }, 200);
     }
     //#region draw objects
     drawBackgroundLoop() {
@@ -103,6 +104,9 @@ export class World {
         }
     }
     //#endregion draw objects
+
+    
+
 
     flipImage(mo) {
         this.ctx.save();

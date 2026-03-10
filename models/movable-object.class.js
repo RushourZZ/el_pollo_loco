@@ -1,6 +1,5 @@
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
-
 export class MovableObject {
     x = 120;
     y = 280;
@@ -13,6 +12,9 @@ export class MovableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2;
+    energy = 100;
+
+    lastHit = 0;
 
     applyGravity() {
         IntervalHub.startInterval(() => {
@@ -38,21 +40,40 @@ export class MovableObject {
 
     drawFrame(ctx) {
         if (!this.hasFrame) return;
-            ctx.beginPath();
-            ctx.lineWidth = "1";
-            ctx.strokeStyle = "red";
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
+        ctx.beginPath();
+        ctx.lineWidth = "1";
+        ctx.strokeStyle = "red";
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
     }
 
-
-    isColliding(mo){
-        return this.x + this.width > mo.x &&
-        this.x < mo.x + mo.width &&
-        this.y + this.height > mo.y &&
-        this.y < mo.y + mo.height;
+    isColliding(mo) {
+        return (
+            this.x + this.width > mo.x &&
+            this.x < mo.x + mo.width &&
+            this.y + this.height > mo.y &&
+            this.y < mo.y + mo.height
+        );
     }
 
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isDead() {
+        return this.energy == 0;
+        
+    }
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit;
+        return timePassed < 100;
+    }
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();

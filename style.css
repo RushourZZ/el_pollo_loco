@@ -1,9 +1,11 @@
 body{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;background: black;
 }
 
 canvas{
-    background: black;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-color: white;
 }
