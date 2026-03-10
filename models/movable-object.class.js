@@ -1,5 +1,6 @@
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
+
 export class MovableObject {
     x = 120;
     y = 280;
@@ -29,6 +30,27 @@ export class MovableObject {
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        if (!this.hasFrame) return;
+            ctx.beginPath();
+            ctx.lineWidth = "1";
+            ctx.strokeStyle = "red";
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+    }
+
+
+    isColliding(mo){
+        return this.x + this.width > mo.x &&
+        this.x < mo.x + mo.width &&
+        this.y + this.height > mo.y &&
+        this.y < mo.y + mo.height;
     }
 
     loadImages(arr) {

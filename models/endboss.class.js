@@ -7,6 +7,7 @@ export class Endboss extends MovableObject {
     height = 500;
     width = 300;
     y = -10;
+    hasFrame = true;
 
     constructor() {
         super();
@@ -15,6 +16,7 @@ export class Endboss extends MovableObject {
         this.loadImages(ImageHub.ENEMIE_BOSS_CHICKEN.hurt);  
         this.loadImages(ImageHub.ENEMIE_BOSS_CHICKEN.alert);
         this.x = 700;
+        
         this.animate();
     }
 

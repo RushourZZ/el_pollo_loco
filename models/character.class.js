@@ -7,7 +7,8 @@ export class Character extends MovableObject {
     y = 155;
     world;
     speed = 10;
-
+    hasFrame = true;
+    
     constructor() {
         super();
         this.loadImage(ImageHub.CHARACTER.idle[0]);

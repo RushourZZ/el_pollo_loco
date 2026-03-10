@@ -3,11 +3,13 @@ import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
 
+
 export class Chicken extends MovableObject {
     y = 370;
     height = 70;
     width = 70;
-
+    hasFrame = true;
+    
     constructor() {
         super();
         this.loadImage(ImageHub.ENEMIES_CHICKEN_NORMAL.walk[0]);
