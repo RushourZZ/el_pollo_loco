@@ -23,7 +23,7 @@ export class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 180;
+        return this.alwaysAboveGround || this.y < 180;
     }
 
     

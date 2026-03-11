@@ -15,7 +15,7 @@ export class Chicken extends MovableObject {
         this.loadImage(ImageHub.ENEMIES_CHICKEN_NORMAL.walk[0]);
         this.loadImages(ImageHub.ENEMIES_CHICKEN_NORMAL.walk);
 
-        this.x = 200 + Math.random() * 500;
+        this.x = 450 + Math.random() * 2000;
         this.speed = 0.15 + Math.random() * 0.5;
         this.animate();
     }

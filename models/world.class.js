@@ -4,6 +4,7 @@ import { ImageHub } from "../manager_classes/imageHub.js";
 import { level1 } from "../levels/level1.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { StatusBar } from "./status-bar.class.js";
+import { ThrowableObject } from "./throwable-object.class.js";
 
 export class World {
     character = new Character();
@@ -16,6 +17,7 @@ export class World {
     keyboard;
     camera_x = 50;
     statusBar = new StatusBar();
+    throwableObjects = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -24,11 +26,18 @@ export class World {
         this.drawBackgroundLoop();
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
+    }
+
+    run() {
+        IntervalHub.startInterval(() => {
+            this.checkCollisions();
+            this.checkThrowObjects();
+        }, 200);
     }
 
     checkCollisions() {
-        IntervalHub.startInterval(() => {
+        
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
@@ -36,7 +45,14 @@ export class World {
                     console.log("Collision detected", this.character.energy);
                 }
             });
-        }, 200);
+    }
+
+    checkThrowObjects() {
+        if(this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x, this.character.y);
+            this.throwableObjects.push(bottle);
+            this.keyboard.D = false;
+        }
     }
     //#region draw objects
     drawBackgroundLoop() {
@@ -84,7 +100,7 @@ export class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
-
+        this.addObjectsToMap(this.throwableObjects);
         this.ctx.translate(-this.camera_x, 0);
 
         // ? Draw wird immer wieder neu aufgerufen
