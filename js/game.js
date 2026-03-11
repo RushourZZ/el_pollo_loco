@@ -7,18 +7,20 @@ let world;
 
 let keyboard = new Keyboard();
 
+document.getElementById("startButton").addEventListener("click", startGame);
 
-window.init = init;
+function startGame() {
+    document.getElementById("startScreen").classList.add("displayNone");
+    init();
+}
 
 function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     window.world = world;
 
-
     console.log("My Caracter is", world.character);
 }
 
-
-
+window.init = init;
 window.keyboard = keyboard;
