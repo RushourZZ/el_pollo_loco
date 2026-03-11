@@ -3,6 +3,7 @@ import { BackgroundObject } from "./background-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { level1 } from "../levels/level1.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
+import { StatusBar } from "./status-bar.class.js";
 
 export class World {
     character = new Character();
@@ -14,6 +15,7 @@ export class World {
     ctx;
     keyboard;
     camera_x = 50;
+    statusBar = new StatusBar();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -30,10 +32,11 @@ export class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
+                    this.statusBar.setPercentage(this.character.energy);
                     console.log("Collision detected", this.character.energy);
                 }
             });
-            }, 200);
+        }, 200);
     }
     //#region draw objects
     drawBackgroundLoop() {
@@ -73,6 +76,11 @@ export class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObjects);
+
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
@@ -104,9 +112,6 @@ export class World {
         }
     }
     //#endregion draw objects
-
-    
-
 
     flipImage(mo) {
         this.ctx.save();

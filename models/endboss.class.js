@@ -15,7 +15,7 @@ export class Endboss extends MovableObject {
         this.loadImages(ImageHub.ENEMIE_BOSS_CHICKEN.walk);
         this.loadImages(ImageHub.ENEMIE_BOSS_CHICKEN.hurt);  
         this.loadImages(ImageHub.ENEMIE_BOSS_CHICKEN.alert);
-        this.x = 700;
+        this.x = 2200;
         
         this.animate();
     }

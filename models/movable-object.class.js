@@ -1,13 +1,10 @@
 import { IntervalHub } from "../manager_classes/intervalHub.js";
+import { DrawableObject } from "./drawable-object.class.js";
 
-export class MovableObject {
-    x = 120;
-    y = 280;
-    img;
-    height = 150;
-    width = 100;
-    currentImage = 0;
-    imageCache = {};
+
+export class MovableObject extends DrawableObject {
+    
+    
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -29,23 +26,9 @@ export class MovableObject {
         return this.y < 180;
     }
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
+    
 
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
-    drawFrame(ctx) {
-        if (!this.hasFrame) return;
-        ctx.beginPath();
-        ctx.lineWidth = "1";
-        ctx.strokeStyle = "red";
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
-    }
+    
 
     isColliding(mo) {
         return (
@@ -74,14 +57,7 @@ export class MovableObject {
         let timePassed = new Date().getTime() - this.lastHit;
         return timePassed < 100;
     }
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
-
+    
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
