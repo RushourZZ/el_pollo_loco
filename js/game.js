@@ -9,6 +9,8 @@ let world;
 let keyboard = new Keyboard();
 
 document.getElementById("startButton").addEventListener("click", startGame);
+document.getElementById("restartButton").addEventListener("click", restartGame);
+
 
 function startGame() {
     document.getElementById("startScreen").classList.add("displayNone");
@@ -16,6 +18,10 @@ function startGame() {
     SoundHub.gameStart.play()
     SoundHub.BACKGROUND.play()
     SoundHub.BACKGROUND.loop = true;
+}
+
+function restartGame() {
+    location.reload();
 }
 
 function init() {

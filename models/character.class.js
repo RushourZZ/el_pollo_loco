@@ -90,6 +90,9 @@ export class Character extends MovableObject {
         ImageHub.CHARACTER.dead.forEach((images, i) => {
             setTimeout(() => {
                 this.img = this.imageCache[images];
+                if (i === ImageHub.CHARACTER.dead.length - 1) {
+                    document.getElementById("gameOverScreen").classList.remove("displayNone");
+                }
             }, i * 150);
         });
     }
