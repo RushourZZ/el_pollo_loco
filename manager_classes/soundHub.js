@@ -16,4 +16,6 @@ export class SoundHub {
     static ENDBOSS = {
         approach: new Audio("audio/endboss/endbossApproach.wav"),
     };
+
+    static BACKGROUND = new Audio("audio/background/daynigthmorning-new-dream-background-music-465079.mp3")
 }

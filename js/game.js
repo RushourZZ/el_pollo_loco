@@ -14,6 +14,8 @@ function startGame() {
     document.getElementById("startScreen").classList.add("displayNone");
     init();
     SoundHub.gameStart.play()
+    SoundHub.BACKGROUND.play()
+    SoundHub.BACKGROUND.loop = true;
 }
 
 function init() {
