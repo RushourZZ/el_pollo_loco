@@ -11,12 +11,13 @@ canvas {
     background-color: white;
 }
 
+
 #game {
     position: relative;
     width: 720px;
     height: 480px;
 }
-
+/* #region start screen */
 #startScreen {
     position: absolute;
     top: 0;
@@ -63,3 +64,4 @@ canvas {
 #startButton:active {
     background: #c54d03;
 }
+/* #endregion start screen */
