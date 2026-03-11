@@ -1,5 +1,6 @@
 import { World } from "../models/world.class.js";
 import { Keyboard } from "../models/keyboard.class.js";
+import { SoundHub } from "../manager_classes/soundHub.js";
 
 let canvas;
 
@@ -12,6 +13,7 @@ document.getElementById("startButton").addEventListener("click", startGame);
 function startGame() {
     document.getElementById("startScreen").classList.add("displayNone");
     init();
+    SoundHub.gameStart.play()
 }
 
 function init() {

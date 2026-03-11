@@ -1,3 +1,5 @@
+import { SoundHub } from "../manager_classes/soundHub.js";
+
 export class Keyboard {
     LEFT = false;
     RIGHT = false;
@@ -36,12 +38,15 @@ export class Keyboard {
         window.addEventListener("keyup", (event) => {
             if (event.key === "ArrowRight") {
                 this.RIGHT = false;
+                SoundHub.CHARACTER.walk.pause();
             }
             if (event.key === "ArrowLeft") {
                 this.LEFT = false;
+                SoundHub.CHARACTER.walk.pause();
             }
             if (event.key === "ArrowUp") {
                 this.UP = false;
+                
             }
             if (event.key === "ArrowDown") {
                 this.DOWN = false;

@@ -1,6 +1,7 @@
 import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
+import { SoundHub } from "../manager_classes/soundHub.js";
 
 export class Character extends MovableObject {
     height = 280;
@@ -9,7 +10,6 @@ export class Character extends MovableObject {
     speed = 10;
     hasFrame = true;
     deathAnimationStarted = false;
-
 
     constructor() {
         super();
@@ -44,6 +44,8 @@ export class Character extends MovableObject {
                 }
                 if (this.world.keyboard.UP && !this.isAboveGround()) {
                     this.jump();
+                    SoundHub.CHARACTER.jump.currentTime = 0;
+                    SoundHub.CHARACTER.jump.play();
                 }
             }
 
@@ -51,10 +53,13 @@ export class Character extends MovableObject {
                 this.checkDeath();
             } else if (this.isHurt()) {
                 this.characterAnimation(ImageHub.CHARACTER.hurt);
+                SoundHub.CHARACTER.damage.play();
             } else if (this.isAboveGround()) {
                 this.characterAnimation(ImageHub.CHARACTER.jump);
+                SoundHub.CHARACTER.jump.play();
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.characterAnimation(ImageHub.CHARACTER.walk);
+                SoundHub.CHARACTER.walk.play();
             }
 
             this.world.camera_x = -this.x + 100;
@@ -76,12 +81,12 @@ export class Character extends MovableObject {
         this.currentImage++;
     }
 
-
     checkDeath() {
         if (this.deathAnimationStarted) return;
         this.deathAnimationStarted = true;
+        SoundHub.CHARACTER.death.play();
         IntervalHub.stopAllIntervals();
-    
+
         ImageHub.CHARACTER.dead.forEach((images, i) => {
             setTimeout(() => {
                 this.img = this.imageCache[images];

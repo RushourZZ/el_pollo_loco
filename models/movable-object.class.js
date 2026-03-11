@@ -1,16 +1,13 @@
 import { IntervalHub } from "../manager_classes/intervalHub.js";
+import { SoundHub } from "../manager_classes/soundHub.js";
 import { DrawableObject } from "./drawable-object.class.js";
 
-
 export class MovableObject extends DrawableObject {
-    
-    
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
     acceleration = 2;
     energy = 100;
-
     lastHit = 0;
 
     applyGravity() {
@@ -25,10 +22,6 @@ export class MovableObject extends DrawableObject {
     isAboveGround() {
         return this.alwaysAboveGround || this.y < 180;
     }
-
-    
-
-    
 
     isColliding(mo) {
         return (
@@ -50,14 +43,14 @@ export class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
-        
     }
 
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         return timePassed < 100;
+        SoundHub.CHARACTER.damage.pause();
     }
-    
+
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
