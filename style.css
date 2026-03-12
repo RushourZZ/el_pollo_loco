@@ -1,12 +1,46 @@
+* {
+    font-family: "1";
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     background-image: url("img/5_background/first_half_background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* margin: 8px 0 18px; */
+    padding: 12px 22px;
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: 0.5px;
+    color: #fff7e6;
+    border: 1px solid rgba(255, 220, 130, 0.35);
+    border-radius: 16px;
+    background: rgba(34, 20, 9, 0.82);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(3px);
 }
 
 canvas {
@@ -18,6 +52,12 @@ canvas {
     position: relative;
     width: 720px;
     height: 480px;
+    border-radius: 16px;
+
+    border: 1px solid rgba(255, 220, 130, 0.35);
+    background: rgba(34, 20, 9, 0.58);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(3px);
 }
 /* #region start screen */
 
@@ -47,7 +87,9 @@ canvas {
 }
 
 #startButton {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     padding: 16px 40px;
     font-size: 24px;
     background: #e85d04;
@@ -55,8 +97,6 @@ canvas {
     border: 3px solid white;
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 400px;
-    margin-left: 560px;
 }
 
 #startButton:hover {
@@ -85,7 +125,6 @@ canvas {
     position: absolute;
     width: 100%;
     height: 100%;
-
     top: 0;
     left: 0;
     border-radius: 10px;
@@ -114,3 +153,36 @@ canvas {
     background: #c54d03;
 }
 /* #endregion game over screen */
+
+/* #region footer */
+footer {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    border: 1px solid rgba(255, 220, 130, 0.35);
+    border-radius: 14px;
+    background: rgba(34, 20, 9, 0.82);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(3px);
+}
+footer p,
+footer a {
+    font-size: 16px;
+    color: #e85d04;
+    text-decoration: none;
+}
+footer a:hover {
+    color: #f48c06;
+    text-decoration: underline;
+}
+footer a:active {
+    color: #c54d03;
+}
+
+/* #endregion footer */
