@@ -1,17 +1,17 @@
 import { Character } from "./character.class.js";
 import { BackgroundObject } from "./background-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
-import { level1 } from "../levels/level1.js";
+import { createLevel1 } from "../levels/level1.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { StatusBar } from "./status-bar.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 
 export class World {
     character = new Character();
-    level = level1;
-    enemies = level1.enemies;
-    clouds = level1.clouds;
-    backgroundObjects = level1.backgroundObjects;
+    level;
+    enemies;
+    clouds;
+    backgroundObjects;
     canvas;
     ctx;
     keyboard;
@@ -20,12 +20,16 @@ export class World {
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
+        this.level = createLevel1();
+        this.enemies = this.level.enemies;
+        this.clouds = this.level.clouds;
+        this.backgroundObjects = this.level.backgroundObjects;
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.drawBackgroundLoop();
-        this.draw();
         this.setWorld();
+        this.draw();
         this.run();
     }
 

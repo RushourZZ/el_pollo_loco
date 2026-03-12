@@ -5,7 +5,8 @@ import { BackgroundObject } from "../models/background-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { Endboss } from "../models/endboss.class.js";
 
-export const level1 = new Level(
+export function createLevel1() {
+    return new Level(
     [
         new Chicken(),
         new Chicken(),
@@ -32,3 +33,4 @@ export const level1 = new Level(
         new BackgroundObject(ImageHub.BACKGROUND_LAYERS.first_layer[0], 0),
     ],
 );
+}
