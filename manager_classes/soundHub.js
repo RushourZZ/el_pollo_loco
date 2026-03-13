@@ -1,4 +1,6 @@
 export class SoundHub {
+    static isMuted = localStorage.getItem("muted") === "true";
+
     static gameStart = new Audio("audio/game/gameStart.mp3");
 
     static CHARACTER = {
@@ -17,5 +19,30 @@ export class SoundHub {
         approach: new Audio("audio/endboss/endbossApproach.wav"),
     };
 
-    static BACKGROUND = new Audio("audio/background/daynigthmorning-new-dream-background-music-465079.mp3")
+    static BACKGROUND = new Audio(
+        "audio/background/daynigthmorning-new-dream-background-music-465079.mp3",
+    );
+
+    static getAllSounds() {
+        return [
+            this.gameStart,
+            this.BACKGROUND,
+            this.CHARACTER.damage,
+            this.CHARACTER.death,
+            this.CHARACTER.jump,
+            this.CHARACTER.walk,
+            this.CHARACTER.longIdle,
+            this.CHICKEN.death,
+            this.ENDBOSS.approach,
+        ];
+    }
+    static toggleMute() {
+        this.isMuted = !this.isMuted;
+        localStorage.setItem("muted", this.isMuted);
+        this.applyMute();
+        return this.isMuted;
+    }
+    static applyMute() {
+        this.getAllSounds().forEach((sound) => (sound.muted = this.isMuted));
+    }
 }
