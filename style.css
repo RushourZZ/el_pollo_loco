@@ -134,7 +134,7 @@ canvas {
     display: none;
 }
 
-#restartButton {
+#quitButton {
     position: relative;
     padding: 16px 40px;
     font-size: 24px;
@@ -145,11 +145,11 @@ canvas {
     cursor: pointer;
 }
 
-#restartButton:hover {
+#quitButton:hover {
     background: #f48c06;
 }
 
-#restartButton:active {
+#quitButton:active {
     background: #c54d03;
 }
 /* #endregion game over screen */

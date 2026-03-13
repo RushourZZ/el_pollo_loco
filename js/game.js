@@ -9,7 +9,7 @@ let world;
 let keyboard = new Keyboard();
 
 document.getElementById("startButton").addEventListener("click", startGame);
-document.getElementById("restartButton").addEventListener("click", restartGame);
+document.getElementById("quitButton").addEventListener("click", quitGame);
 
 
 function startGame() {
@@ -20,7 +20,7 @@ function startGame() {
     SoundHub.BACKGROUND.loop = true;
 }
 
-function restartGame() {
+function quitGame() {
     location.reload();
 }
 

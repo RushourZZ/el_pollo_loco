@@ -10,6 +10,7 @@ export class Character extends MovableObject {
     speed = 10;
     hasFrame = true;
     deathAnimationStarted = false;
+    longIdleDetector = new Date().getTime();
 
     constructor() {
         super();
@@ -28,7 +29,14 @@ export class Character extends MovableObject {
     //#region character animation
     animate() {
         IntervalHub.startInterval(() => {
-            this.characterAnimation(ImageHub.CHARACTER.idle);
+            if (this.isLongIdle()) {
+                this.characterAnimation(ImageHub.CHARACTER.long_idle);
+                SoundHub.CHARACTER.longIdle.play();
+            }
+            else if(this.isInIdleAnimation()) {
+                SoundHub.CHARACTER.longIdle.pause();
+                this.characterAnimation(ImageHub.CHARACTER.idle);
+            }
         }, 7800 / 60);
 
         IntervalHub.startInterval(() => {
@@ -60,6 +68,7 @@ export class Character extends MovableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.characterAnimation(ImageHub.CHARACTER.walk);
                 SoundHub.CHARACTER.walk.play();
+                this.longIdleDetector = new Date().getTime();
             }
 
             this.world.camera_x = -this.x + 100;
@@ -73,6 +82,11 @@ export class Character extends MovableObject {
             !this.world.keyboard.LEFT &&
             !this.world.keyboard.UP
         );
+    }
+
+    isLongIdle() {
+        let timePassed = new Date().getTime() - this.longIdleDetector;
+        return this.isInIdleAnimation() && timePassed > 5000;
     }
 
     characterAnimation(images) {
