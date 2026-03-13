@@ -7,6 +7,7 @@ import { StatusBar } from "./status-bar.class.js";
 import { CoinStatusBar } from "./coin-status-bar.class.js";
 import { BottleStatusBar } from "./bottle-status-bar.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
+import { Endboss } from "./endboss.class.js";
 
 export class World {
     character = new Character();
@@ -50,6 +51,7 @@ export class World {
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
         this.checkBottleCollisions();
+        this.checkThrowableHits();
     }
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
@@ -64,9 +66,7 @@ export class World {
         this.level.coins = this.level.coins.filter((coin) => {
             if (this.character.isColliding(coin)) {
                 this.collectedCoins++;
-                this.coinStatusBar.setPercentage(
-                    (this.collectedCoins / 10) * 100,
-                );
+                this.coinStatusBar.setPercentage((this.collectedCoins / 10) * 100);
                 return false;
             }
             return true;
@@ -76,22 +76,38 @@ export class World {
         this.level.bottles = this.level.bottles.filter((bottle) => {
             if (this.character.isColliding(bottle)) {
                 this.collectedBottles++;
-                this.bottleStatusBar.setPercentage(
-                    (this.collectedBottles / 10) * 100,
-                );
+                this.bottleStatusBar.setPercentage((this.collectedBottles / 10) * 100);
                 return false;
             }
             return true;
         });
     }
 
+    checkThrowableHits() {
+        this.throwableObjects.forEach((bottle) => {
+            this.level.enemies.forEach((enemy) => {
+                if (bottle.isColliding(enemy)) {
+                    if (enemy instanceof Endboss) {
+                        enemy.hit();
+                    } else {
+                        enemy.energy = 0;
+                        setTimeout(() => {
+                            this.level.enemies = this.level.enemies.filter((e) => e !== enemy);
+                        }, 500);
+                    }
+                    bottle.startSplash();
+                }
+            });
+        });
+        this.throwableObjects = this.throwableObjects.filter((bottle) => !bottle.hasSplashed);
+    }
+
     checkThrowObjects() {
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(
-                this.character.x,
-                this.character.y,
-            );
+        if (this.keyboard.D && this.collectedBottles > 0) {
+            let bottle = new ThrowableObject(this.character.x, this.character.y);
             this.throwableObjects.push(bottle);
+            this.collectedBottles--;
+            this.bottleStatusBar.setPercentage((this.collectedBottles / 10) * 100);
             this.keyboard.D = false;
         }
     }
@@ -103,10 +119,7 @@ export class World {
         for (let i = 0; i < backgroundSegments; i++) {
             let variant = Math.abs(i % 2);
             this.backgroundObjects.push(
-                new BackgroundObject(
-                    ImageHub.BACKGROUND_LAYERS.air[0],
-                    i * backgroundSegmentWidth,
-                ),
+                new BackgroundObject(ImageHub.BACKGROUND_LAYERS.air[0], i * backgroundSegmentWidth),
                 new BackgroundObject(
                     ImageHub.BACKGROUND_LAYERS.third_layer[variant],
                     i * backgroundSegmentWidth,
