@@ -47,7 +47,11 @@ export class ImageHub {
             "img/2_character_pepe/3_jump/J-39.png",
         ],
 
-        hurt: ["img/2_character_pepe/4_hurt/H-41.png", "img/2_character_pepe/4_hurt/H-42.png", "img/2_character_pepe/4_hurt/H-43.png"],
+        hurt: [
+            "img/2_character_pepe/4_hurt/H-41.png",
+            "img/2_character_pepe/4_hurt/H-42.png",
+            "img/2_character_pepe/4_hurt/H-43.png",
+        ],
 
         dead: [
             "img/2_character_pepe/5_dead/D-51.png",
@@ -86,9 +90,7 @@ export class ImageHub {
             "img/2_character_pepe/5_dead/D-57.png",
         ],
 
-        pepe:[
-            "img/2_character_pepe/Pepe.png",
-        ],
+        pepe: ["img/2_character_pepe/Pepe.png"],
     };
 
     static ENEMIES_CHICKEN_NORMAL = {
@@ -116,7 +118,6 @@ export class ImageHub {
             "img/4_enemie_boss_chicken/1_walk/G2.png",
             "img/4_enemie_boss_chicken/1_walk/G3.png",
             "img/4_enemie_boss_chicken/1_walk/G4.png",
-
         ],
 
         alert: [
@@ -128,7 +129,6 @@ export class ImageHub {
             "img/4_enemie_boss_chicken/2_alert/G10.png",
             "img/4_enemie_boss_chicken/2_alert/G11.png",
             "img/4_enemie_boss_chicken/2_alert/G12.png",
-
         ],
 
         attack: [
@@ -140,14 +140,12 @@ export class ImageHub {
             "img/4_enemie_boss_chicken/3_attack/G18.png",
             "img/4_enemie_boss_chicken/3_attack/G19.png",
             "img/4_enemie_boss_chicken/3_attack/G20.png",
-
         ],
 
         hurt: [
             "img/4_enemie_boss_chicken/4_hurt/G21.png",
             "img/4_enemie_boss_chicken/4_hurt/G22.png",
             "img/4_enemie_boss_chicken/4_hurt/G23.png",
-
         ],
 
         dead: [
@@ -155,7 +153,6 @@ export class ImageHub {
             "img/4_enemie_boss_chicken/5_dead/G25.png",
             "img/4_enemie_boss_chicken/5_dead/G26.png",
             "img/4_enemie_boss_chicken/5_dead/G27.png",
-
         ],
     };
 
@@ -178,7 +175,11 @@ export class ImageHub {
             "img/5_background/layers/3_third_layer/full.png",
         ],
 
-        clouds: ["img/5_background/layers/4_clouds/1.png", "img/5_background/layers/4_clouds/2.png", "img/5_background/layers/4_clouds/full.png"],
+        clouds: [
+            "img/5_background/layers/4_clouds/1.png",
+            "img/5_background/layers/4_clouds/2.png",
+            "img/5_background/layers/4_clouds/full.png",
+        ],
 
         air: ["img/5_background/layers/air.png"],
     };
@@ -189,7 +190,6 @@ export class ImageHub {
             "img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
             "img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
             "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
-            
         ],
 
         splash: [
@@ -252,7 +252,8 @@ export class ImageHub {
             "img/7_statusbars/3_icons/icon_salsa_bottle.png",
         ],
 
-        coin: ["img/8_coin/coin_1.png", "img/8_coin/coin_2.png"],
+        coin: ["img/8_coin/coin_1.png", 
+            "img/8_coin/coin_2.png"],
     };
 
     static INTRO_OUTRO_SCREENS = {

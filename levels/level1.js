@@ -4,6 +4,8 @@ import { Cloud } from "../models/cloud.class.js";
 import { BackgroundObject } from "../models/background-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { Endboss } from "../models/endboss.class.js";
+import { Coin } from "../models/coin.class.js";
+import { Bottle } from "../models/bottle.class.js";
 
 export function createLevel1() {
     return new Level(
@@ -32,5 +34,39 @@ export function createLevel1() {
         new BackgroundObject(ImageHub.BACKGROUND_LAYERS.second_layer[0], 0),
         new BackgroundObject(ImageHub.BACKGROUND_LAYERS.first_layer[0], 0),
     ],
+    [
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+
+    ],
+    [
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+      
+    ],
+
+    
 );
+
+    
 }

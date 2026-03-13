@@ -4,6 +4,8 @@ import { ImageHub } from "../manager_classes/imageHub.js";
 import { createLevel1 } from "../levels/level1.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { StatusBar } from "./status-bar.class.js";
+import { CoinStatusBar } from "./coin-status-bar.class.js";
+import { BottleStatusBar } from "./bottle-status-bar.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 
 export class World {
@@ -18,6 +20,10 @@ export class World {
     camera_x = 50;
     statusBar = new StatusBar();
     throwableObjects = [];
+    coinStatusBar = new CoinStatusBar();
+    bottleStatusBar = new BottleStatusBar();
+    collectedCoins = 0;
+    collectedBottles = 0;
 
     constructor(canvas, keyboard) {
         this.level = createLevel1();
@@ -41,19 +47,50 @@ export class World {
     }
 
     checkCollisions() {
-        
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
-                    console.log("Collision detected", this.character.energy);
-                }
-            });
+        this.checkEnemyCollisions();
+        this.checkCoinCollisions();
+        this.checkBottleCollisions();
+    }
+    checkEnemyCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+                console.log("Collision detected", this.character.energy);
+            }
+        });
+    }
+    checkCoinCollisions() {
+        this.level.coins = this.level.coins.filter((coin) => {
+            if (this.character.isColliding(coin)) {
+                this.collectedCoins++;
+                this.coinStatusBar.setPercentage(
+                    (this.collectedCoins / 10) * 100,
+                );
+                return false;
+            }
+            return true;
+        });
+    }
+    checkBottleCollisions() {
+        this.level.bottles = this.level.bottles.filter((bottle) => {
+            if (this.character.isColliding(bottle)) {
+                this.collectedBottles++;
+                this.bottleStatusBar.setPercentage(
+                    (this.collectedBottles / 10) * 100,
+                );
+                return false;
+            }
+            return true;
+        });
     }
 
     checkThrowObjects() {
-        if(this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x, this.character.y);
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(
+                this.character.x,
+                this.character.y,
+            );
             this.throwableObjects.push(bottle);
             this.keyboard.D = false;
         }
@@ -99,12 +136,16 @@ export class World {
 
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
+        this.addToMap(this.coinStatusBar);
+        this.addToMap(this.bottleStatusBar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
         this.ctx.translate(-this.camera_x, 0);
 
         // ? Draw wird immer wieder neu aufgerufen
