@@ -9,6 +9,7 @@ import { BottleStatusBar } from "./bottle-status-bar.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 import { Endboss } from "./endboss.class.js";
 import { EndbossStatusBar } from "./endboss-status-bar.class.js";
+import { SoundHub } from "../manager_classes/soundHub.js";
 
 
 export class World {
@@ -72,7 +73,10 @@ export class World {
         this.level.coins = this.level.coins.filter((coin) => {
             if (this.character.isColliding(coin)) {
                 this.collectedCoins++;
+                
                 this.coinStatusBar.setPercentage((this.collectedCoins / 10) * 100);
+                SoundHub.COLLECTIBLE.coin.currentTime = 0;
+                SoundHub.COLLECTIBLE.coin.play();
                 return false;
             }
             return true;
@@ -83,6 +87,8 @@ export class World {
             if (this.character.isColliding(bottle)) {
                 this.collectedBottles++;
                 this.bottleStatusBar.setPercentage((this.collectedBottles / 10) * 100);
+                SoundHub.COLLECTIBLE.bottle.currentTime = 0;
+                SoundHub.COLLECTIBLE.bottle.play();
                 return false;
             }
             return true;

@@ -11,7 +11,7 @@ export class SoundHub {
         longIdle: new Audio("audio/character/characterSnoring.mp3"),
     };
 
-    static CHICKEN = {
+    static CHICKEN_NORMAL = {
         death: new Audio("audio/chicken/chickenDead.mp3"),
     };
 
@@ -23,6 +23,19 @@ export class SoundHub {
         "audio/background/daynigthmorning-new-dream-background-music-465079.mp3",
     );
 
+    static SMALL_CHICKEN_DEATH = {
+        death: new Audio("audio/chicken/chickenDead2.mp3"),
+    };
+
+    static COLLECTIBLE = {
+        coin: new Audio("audio/collectibles/collectSound.wav"),
+        bottle: new Audio("audio/collectibles/bottleCollectSound.wav"),
+    };
+
+    static THROWABLE = {
+        bottle: new Audio("audio/throwable/bottleBreak.mp3"),
+    };
+
     static getAllSounds() {
         return [
             this.gameStart,
@@ -32,8 +45,12 @@ export class SoundHub {
             this.CHARACTER.jump,
             this.CHARACTER.walk,
             this.CHARACTER.longIdle,
-            this.CHICKEN.death,
+            this.CHICKEN_NORMAL.death,
             this.ENDBOSS.approach,
+            this.SMALL_CHICKEN_DEATH.death,
+            this.COLLECTIBLE.coin,
+            this.COLLECTIBLE.bottle,
+            this.THROWABLE.bottle,
         ];
     }
     static toggleMute() {
@@ -43,6 +60,9 @@ export class SoundHub {
         return this.isMuted;
     }
     static applyMute() {
-        this.getAllSounds().forEach((sound) => (sound.muted = this.isMuted));
+        this.getAllSounds().forEach((sound) => {
+            sound.muted = this.isMuted;
+            sound.volume = 0.2;
+        });
     }
 }

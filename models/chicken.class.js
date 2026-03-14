@@ -1,12 +1,14 @@
 import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
+import { SoundHub } from "../manager_classes/soundHub.js";
 
 export class Chicken extends MovableObject {
     y = 370;
     height = 70;
     width = 70;
     hasFrame = true;
+    deadSoundPlayed = false;
 
     constructor() {
         super();
@@ -30,6 +32,10 @@ export class Chicken extends MovableObject {
         IntervalHub.startInterval(() => {
             if (this.isDead()) {
                 this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_NORMAL.dead];
+                if (!this.deathSoundPlayed) {
+                    SoundHub.CHICKEN_NORMAL.death.play();
+                    this.deathSoundPlayed = true;
+                }
             } else {
                 let i = this.currentImage % ImageHub.ENEMIES_CHICKEN_NORMAL.walk.length;
                 this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_NORMAL.walk[i]];

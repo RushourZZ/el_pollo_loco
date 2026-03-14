@@ -2,6 +2,7 @@ import { ImageHub } from "../manager_classes/imageHub.js";
 import { MovableObject } from "./movable-object.class.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { SmallChicken } from "./small-chicken.class.js";
+import { SoundHub } from "../manager_classes/soundHub.js";
 
 export class Endboss extends MovableObject {
     height = 500;
@@ -55,14 +56,18 @@ export class Endboss extends MovableObject {
     updateAnimation() {
         if (this.isDead()) {
             this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.dead);
+            SoundHub.ENDBOSS.approach.play();
         } else if (this.isHurt()) {
             this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.hurt);
         } else if (this.isAlerted && !this.alertPlayed) {
             this.playAlert();
+            
         } else if (this.isAttacking) {
             this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.attack);
+            
         } else if (this.isAlerted) {
             this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.walk);
+            
         }
     }
 
@@ -78,6 +83,10 @@ export class Endboss extends MovableObject {
         if (this.isAlerted) return;
         this.isAlerted = true;
         this.currentImage = 0;
+        SoundHub.ENDBOSS.approach.volume = 1.0;
+        SoundHub.ENDBOSS.approach.play();
+        console.log("ENDBOSS SOUND PLAYED");
+        
     }
 
     tryAttack(world) {

@@ -1,6 +1,7 @@
 import { MovableObject } from "./movable-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
+import { SoundHub } from "../manager_classes/soundHub.js";
 
 export class ThrowableObject extends MovableObject {
     alwaysAboveGround = true;
@@ -38,11 +39,14 @@ export class ThrowableObject extends MovableObject {
         this.splashing = true;
         this.currentImage = 0;
         this.speedY = 0;
+        SoundHub.THROWABLE.bottle.play();
     }
 
     splashAnimation() {
         if (this.currentImage >= ImageHub.SALSA_BOTTLE.splash.length) {
             this.hasSplashed = true;
+            
+
             return;
         }
         this.img = this.imageCache[ImageHub.SALSA_BOTTLE.splash[this.currentImage]];
