@@ -8,6 +8,8 @@ import { CoinStatusBar } from "./coin-status-bar.class.js";
 import { BottleStatusBar } from "./bottle-status-bar.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 import { Endboss } from "./endboss.class.js";
+import { EndbossStatusBar } from "./endboss-status-bar.class.js";
+
 
 export class World {
     character = new Character();
@@ -25,12 +27,15 @@ export class World {
     bottleStatusBar = new BottleStatusBar();
     collectedCoins = 0;
     collectedBottles = 0;
+    endbossStatusBar = new EndbossStatusBar();
+    endboss = null;
 
     constructor(canvas, keyboard) {
         this.level = createLevel1();
         this.enemies = this.level.enemies;
         this.clouds = this.level.clouds;
         this.backgroundObjects = this.level.backgroundObjects;
+        this.endboss = this.level.enemies.find((e) => e instanceof Endboss);
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -44,6 +49,7 @@ export class World {
         IntervalHub.startInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkEndbossAlert();
         }, 200);
     }
 
@@ -83,12 +89,23 @@ export class World {
         });
     }
 
+    checkEndbossAlert() {
+        if (!this.endboss || this.endboss.isDead()) return;
+        if (this.character.x > 1900) {
+            this.endboss.triggerAlert();
+        }
+        if (this.endboss.alertPlayed) {
+            this.endboss.tryAttack(this);
+        }
+    }
+
     checkThrowableHits() {
         this.throwableObjects.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
                 if (bottle.isColliding(enemy)) {
                     if (enemy instanceof Endboss) {
                         enemy.hit();
+                        this.endbossStatusBar.setPercentage(enemy.energy);
                     } else {
                         enemy.energy = 0;
                         setTimeout(() => {
@@ -101,7 +118,6 @@ export class World {
         });
         this.throwableObjects = this.throwableObjects.filter((bottle) => !bottle.hasSplashed);
     }
-
     checkThrowObjects() {
         if (this.keyboard.D && this.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x, this.character.y);
@@ -151,6 +167,7 @@ export class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.coinStatusBar);
         this.addToMap(this.bottleStatusBar);
+        if (this.endboss && this.endboss.alertPlayed) this.addToMap(this.endbossStatusBar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
