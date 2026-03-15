@@ -2,6 +2,7 @@ import { World } from "../models/world.class.js";
 import { Keyboard } from "../models/keyboard.class.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
+import { ImageHub } from "../manager_classes/imageHub.js";
 
 
 let canvas;
@@ -20,9 +21,9 @@ document.getElementById("restartButtonWon").addEventListener("click", restartGam
 //#endregion event listeners
 
 //#region 
-function startGame() {
+async function startGame() {
     document.getElementById("startScreen").classList.add("displayNone");
-
+    await preloadImages();
     init();
     SoundHub.gameStart.play();
     SoundHub.BACKGROUND.play();
@@ -64,6 +65,20 @@ function restartGame() {
     init();
     SoundHub.gameStart.play();
     SoundHub.BACKGROUND.play();
+}
+
+
+function preloadImages() {
+    let paths = ImageHub.getAllPaths();
+    let promises = paths.map((path) => {
+        return new Promise((resolve) => {
+            let img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            img.src = path;
+        });
+    });
+    return Promise.all(promises);
 }
 
 window.init = init;

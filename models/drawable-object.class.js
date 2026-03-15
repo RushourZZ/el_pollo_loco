@@ -23,14 +23,19 @@ loadImage(path) {
     }
 
 
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
 
+
+    loadImages(arr) {
+        let promises = arr.map((path) => {
+            return new Promise((resolve) => {
+                let img = new Image();
+                img.onload = () => resolve();
+                img.src = path;
+                this.imageCache[path] = img;
+            });
+        });
+        return Promise.all(promises);
+    }
 
     drawFrame(ctx) {
         if (!this.hasFrame) return;

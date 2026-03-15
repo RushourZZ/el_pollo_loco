@@ -125,15 +125,16 @@ footer a:active {
 
 #startButton {
     position: absolute;
-    bottom: 5px;
+    bottom: 50px;
 
     padding: 16px 40px;
     font-size: 24px;
-    background: #e85d04;
+    background: rgba(232, 93, 4, 0.5);
     color: white;
     border: 3px solid white;
     border-radius: 10px;
     cursor: pointer;
+    z-index: 999;
 }
 
 #startButton:hover {
@@ -264,9 +265,9 @@ footer a:active {
 @media (pointer: coarse) {
     #mobileControls {
         position: absolute;
-        bottom: 10px;
-        left: 10px;
-        right: 10px;
+        bottom: 40px;
+        left: 20px;
+        right: 20px;
         display: flex;
         justify-content: space-between;
         z-index: 10;
@@ -300,3 +301,88 @@ footer a:active {
     }
 }
 /* #endregion mobile controls */
+
+
+/* #region rotate overlay */
+#rotateOverlay {
+    display: none;
+}
+
+@media (pointer: coarse) and (orientation: portrait) {
+    #rotateOverlay {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        background: rgba(34, 20, 9, 0.95);
+    }
+
+    #rotateIcon {
+        font-size: 64px;
+        animation: rotateHint 2s ease-in-out infinite;
+    }
+
+    #rotateOverlay p {
+        font-size: 22px;
+        color: #fff7e6;
+        text-align: center;
+        padding: 0 30px;
+    }
+
+    @keyframes rotateHint {
+        0%, 100% { transform: rotate(0deg); }
+        50% { transform: rotate(90deg); }
+    }
+
+    #game,
+    header,
+    footer,
+    #controls {
+        display: none;
+    }
+}
+/* #endregion rotate overlay */
+
+/* #region mobile fullscreen */
+@media (pointer: coarse) and (orientation: landscape) {
+    header,
+    footer,
+    #controls {
+        display: none;
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    #game {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+        background: black;
+    }
+
+    canvas {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 0;
+    }
+
+    #startScreen img,
+    #gameOverScreen img,
+    #gameWonScreen img {
+        border-radius: 0;
+    }
+}
+/* #endregion mobile fullscreen */

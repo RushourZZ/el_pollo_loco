@@ -71,6 +71,9 @@ export class Character extends MovableObject {
                 SoundHub.CHARACTER.walk.play();
                 this.longIdleDetector = new Date().getTime();
             }
+            else {
+                SoundHub.CHARACTER.walk.pause();
+            }
 
             this.world.camera_x = -this.x + 100;
         }, 2000 / 60);

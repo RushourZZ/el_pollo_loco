@@ -262,4 +262,15 @@ export class ImageHub {
 
         start: ["img/9_intro_outro_screens/start/startscreen_2.png"],
     };
+
+    static getAllPaths() {
+        let paths = [];
+        for (let category of Object.values(ImageHub)) {
+            if (typeof category !== "object") continue;
+            for (let arr of Object.values(category)) {
+                if (Array.isArray(arr)) paths.push(...arr);
+            }
+        }
+        return paths;
+    }
 }

@@ -74,10 +74,10 @@ export class Keyboard {
         btn.addEventListener("touchstart", (e) => {
             e.preventDefault();
             this[key] = true;
-        });
+        }, {passive: false });
         btn.addEventListener("touchend", (e) => {
             e.preventDefault();
             this[key] = false;
-        });
+        }, {passive: false });
     }
 }
