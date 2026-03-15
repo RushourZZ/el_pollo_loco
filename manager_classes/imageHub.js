@@ -258,6 +258,7 @@ export class ImageHub {
 
     static INTRO_OUTRO_SCREENS = {
         game_over: ["img/You_won,_you_lost/you_lost_b.png"],
+        game_won: ["img/You_won,_you_lost/you_won_a.png"],
 
         start: ["img/9_intro_outro_screens/start/startscreen_2.png"],
     };

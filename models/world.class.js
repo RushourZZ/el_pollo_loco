@@ -11,6 +11,7 @@ import { Endboss } from "./endboss.class.js";
 import { EndbossStatusBar } from "./endboss-status-bar.class.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
+
 export class World {
     character = new Character();
     level;
@@ -29,6 +30,7 @@ export class World {
     collectedBottles = 0;
     endbossStatusBar = new EndbossStatusBar();
     endboss = null;
+    gameOver= false;
 
     constructor(canvas, keyboard) {
         this.level = createLevel1();
@@ -50,6 +52,7 @@ export class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkEndbossAlert();
+            this.checkEndbossDefeated();
         }, 40);
     }
 
@@ -113,6 +116,15 @@ export class World {
         }
     }
 
+    checkEndbossDefeated() {
+        if (!this.endboss || !this.endboss.isDead() || this.gameOver) return;
+        this.gameOver = true;
+        setTimeout(() => {
+            IntervalHub.stopAllIntervals();
+            document.getElementById("gameWonScreen").classList.remove("displayNone");
+        }, 1000);
+    }
+    
     checkThrowableHits() {
         this.throwableObjects.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {

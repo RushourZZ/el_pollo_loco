@@ -97,8 +97,9 @@ export class Character extends MovableObject {
     }
 
     checkDeath() {
-        if (this.deathAnimationStarted) return;
+        if (this.deathAnimationStarted || this.world.gameOver) return;
         this.deathAnimationStarted = true;
+        this.world.gameOver = true;
         SoundHub.CHARACTER.death.play();
         IntervalHub.stopAllIntervals();
 

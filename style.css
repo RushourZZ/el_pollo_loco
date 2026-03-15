@@ -145,7 +145,7 @@ footer a:active {
 }
 /* #endregion start screen */
 
-/* #region game over screen */
+/* #region game over/won screen */
 #gameOverScreen {
     position: absolute;
     top: 0;
@@ -158,7 +158,7 @@ footer a:active {
     justify-content: center;
 }
 
-#gameOverScreen img {
+#gameOverScreen img, #gameWonScreen img {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -167,11 +167,11 @@ footer a:active {
     border-radius: 10px;
 }
 
-#gameOverScreen.displayNone {
+#gameOverScreen.displayNone, #gameWonScreen.displayNone {
     display: none;
 }
 
-#quitButton {
+#quitButton, #quitButtonWon {
     position: relative;
     padding: 16px 40px;
     font-size: 24px;
@@ -182,11 +182,11 @@ footer a:active {
     cursor: pointer;
 }
 
-#quitButton:hover {
+#quitButton:hover, #quitButtonWon:hover {
     background: #f48c06;
 }
 
-#quitButton:active {
+#quitButton:active, #quitButtonWon:active {
     background: #c54d03;
 }
 /* #endregion game over screen */

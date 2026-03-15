@@ -11,6 +11,7 @@ let keyboard = new Keyboard();
 document.getElementById("startButton").addEventListener("click", startGame);
 document.getElementById("quitButton").addEventListener("click", quitGame);
 document.getElementById("muteButton").addEventListener("click", toggleMute);
+document.getElementById("quitButtonWon").addEventListener("click", quitGame);
 
 function startGame() {
     document.getElementById("startScreen").classList.add("displayNone");
