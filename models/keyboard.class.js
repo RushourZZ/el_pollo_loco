@@ -13,6 +13,11 @@ export class Keyboard {
     }
 
     addEvents() {
+        this.addKeyboardEvents();
+        this.addTouchEvents();
+    }
+
+    addKeyboardEvents() {
         window.addEventListener("keydown", (event) => {
             if (event.key === "ArrowRight") {
                 this.RIGHT = true;
@@ -54,6 +59,25 @@ export class Keyboard {
             if (event.key === " ") {
                 this.SPACE = false;
             }
+        });
+    }
+
+    addTouchEvents() {
+        this.bindTouch("btnLeft", "LEFT");
+        this.bindTouch("btnRight", "RIGHT");
+        this.bindTouch("btnJump", "UP");
+        this.bindTouch("btnThrow", "D");
+    }
+    bindTouch(id, key) {
+        let btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            this[key] = true;
+        });
+        btn.addEventListener("touchend", (e) => {
+            e.preventDefault();
+            this[key] = false;
         });
     }
 }

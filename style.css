@@ -125,8 +125,8 @@ footer a:active {
 
 #startButton {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 5px;
+
     padding: 16px 40px;
     font-size: 24px;
     background: #e85d04;
@@ -255,3 +255,48 @@ footer a:active {
     color: #fff7e6;
 }
 /* #endregion controls */
+
+/* #region mobile controls */
+#mobileControls {
+    display: none;
+}
+
+@media (pointer: coarse) {
+    #mobileControls {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        display: flex;
+        justify-content: space-between;
+        z-index: 10;
+    }
+
+    #mobileControlsLeft,
+    #mobileControlsRight {
+        display: flex;
+        gap: 10px;
+    }
+
+    #mobileControls button {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        color: #fff7e6;
+        background: rgba(232, 93, 4, 0.7);
+        border: 2px solid rgba(255, 220, 130, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    #mobileControls button:active {
+        background: rgba(232, 93, 4, 1);
+    }
+
+    #controls {
+        display: none;
+    }
+}
+/* #endregion mobile controls */
