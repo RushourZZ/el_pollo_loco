@@ -24,25 +24,26 @@ export class Chicken extends MovableObject {
 
     //#region chicken animation
     animate() {
-        IntervalHub.startInterval(() => {
-            if (!this.isDead()) {
-                this.moveLeft();
-            }
-        }, 1000 / 60);
+        IntervalHub.startInterval(() => this.updateMovement(), 1000 / 60);
+        IntervalHub.startInterval(() => this.updateAnimation(), 7800 / 60);
+    }
 
-        IntervalHub.startInterval(() => {
-            if (this.isDead()) {
-                this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_NORMAL.dead];
-                if (!this.deathSoundPlayed) {
-                    SoundHub.CHICKEN_NORMAL.death.play();
-                    this.deathSoundPlayed = true;
-                }
-            } else {
-                let i = this.currentImage % ImageHub.ENEMIES_CHICKEN_NORMAL.walk.length;
-                this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_NORMAL.walk[i]];
-                this.currentImage++;
+    updateMovement() {
+        if (!this.isDead()) this.moveLeft();
+    }
+
+    updateAnimation() {
+        if (this.isDead()) {
+            this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_NORMAL.dead];
+            if (!this.deadSoundPlayed) {
+                SoundHub.CHICKEN_NORMAL.death.play();
+                this.deadSoundPlayed = true;
             }
-        }, 7800 / 60);
+        } else {
+            let i = this.currentImage % ImageHub.ENEMIES_CHICKEN_NORMAL.walk.length;
+            this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_NORMAL.walk[i]];
+            this.currentImage++;
+        }
     }
 
     moveLeft() {

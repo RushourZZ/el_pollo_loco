@@ -22,24 +22,25 @@ export class SmallChicken extends MovableObject {
     }
 
     animate() {
-        IntervalHub.startInterval(() => {
-            if (!this.isDead()) this.moveLeft();
-        }, 1000 / 60);
+        IntervalHub.startInterval(() => this.updateMovement(), 1000 / 60);
+        IntervalHub.startInterval(() => this.updateAnimation(), 100);
+    }
 
-        IntervalHub.startInterval(() => {
-            if (this.isDead()) {
-                if (this.isDead()) {
-                    this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_SMALL.dead[0]];
-                    if (!this.deathSoundPlayed) {
-                        SoundHub.SMALL_CHICKEN_DEATH.death.play();
-                        this.deathSoundPlayed = true;
-                    }
-                } else {
-                    let i = this.currentImage % ImageHub.ENEMIES_CHICKEN_SMALL.walk.length;
-                    this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_SMALL.walk[i]];
-                    this.currentImage++;
-                }
+    updateMovement() {
+        if (!this.isDead()) this.moveLeft();
+    }
+
+    updateAnimation() {
+        if (this.isDead()) {
+            this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_SMALL.dead[0]];
+            if (!this.deathSoundPlayed) {
+                SoundHub.SMALL_CHICKEN_DEATH.death.play();
+                this.deathSoundPlayed = true;
             }
-        }, 100);
+        } else {
+            let i = this.currentImage % ImageHub.ENEMIES_CHICKEN_SMALL.walk.length;
+            this.img = this.imageCache[ImageHub.ENEMIES_CHICKEN_SMALL.walk[i]];
+            this.currentImage++;
+        }
     }
 }

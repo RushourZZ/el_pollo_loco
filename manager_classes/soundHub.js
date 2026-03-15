@@ -37,21 +37,13 @@ export class SoundHub {
     };
 
     static getAllSounds() {
-        return [
-            this.gameStart,
-            this.BACKGROUND,
-            this.CHARACTER.damage,
-            this.CHARACTER.death,
-            this.CHARACTER.jump,
-            this.CHARACTER.walk,
-            this.CHARACTER.longIdle,
-            this.CHICKEN_NORMAL.death,
-            this.ENDBOSS.approach,
-            this.SMALL_CHICKEN_DEATH.death,
-            this.COLLECTIBLE.coin,
-            this.COLLECTIBLE.bottle,
-            this.THROWABLE.bottle,
+        let sounds = [this.gameStart, this.BACKGROUND];
+        let categories = [
+            this.CHARACTER, this.CHICKEN_NORMAL, this.ENDBOSS,
+            this.SMALL_CHICKEN_DEATH, this.COLLECTIBLE, this.THROWABLE,
         ];
+        categories.forEach((cat) => sounds.push(...Object.values(cat)));
+        return sounds;
     }
 
   

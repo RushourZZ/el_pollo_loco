@@ -29,54 +29,60 @@ export class Character extends MovableObject {
 
     //#region character animation
     animate() {
+        IntervalHub.startInterval(() => this.handleIdle(), 7800 / 60);
         IntervalHub.startInterval(() => {
-            if (this.isLongIdle()) {
-                this.characterAnimation(ImageHub.CHARACTER.long_idle);
-                SoundHub.CHARACTER.longIdle.play();
-            }
-            else if(this.isInIdleAnimation()) {
-                SoundHub.CHARACTER.longIdle.pause();
-                this.characterAnimation(ImageHub.CHARACTER.idle);
-            }
-        }, 7800 / 60);
-
-        IntervalHub.startInterval(() => {
-            if (!this.isDead()) {
-                if (
-                    this.world.keyboard.RIGHT &&
-                    this.x < this.world.level.level_end_x
-                ) {
-                    this.moveRight();
-                }
-                if (this.world.keyboard.LEFT && this.x > 100) {
-                    this.moveLeft();
-                }
-                if (this.world.keyboard.UP && !this.isAboveGround()) {
-                    this.jump();
-                    SoundHub.CHARACTER.jump.currentTime = 0;
-                    SoundHub.CHARACTER.jump.play();
-                }
-            }
-
-            if (this.isDead()) {
-                this.checkDeath();
-            } else if (this.isHurt()) {
-                this.characterAnimation(ImageHub.CHARACTER.hurt);
-                SoundHub.CHARACTER.damage.play();
-            } else if (this.isAboveGround()) {
-                this.characterAnimation(ImageHub.CHARACTER.jump);
-                SoundHub.CHARACTER.jump.play();
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.characterAnimation(ImageHub.CHARACTER.walk);
-                SoundHub.CHARACTER.walk.play();
-                this.longIdleDetector = new Date().getTime();
-            }
-            else {
-                SoundHub.CHARACTER.walk.pause();
-            }
-
+            this.handleMovement();
+            this.handleState();
             this.world.camera_x = -this.x + 100;
         }, 2000 / 60);
+    }
+
+    handleIdle() {
+        if (this.isLongIdle()) {
+            this.characterAnimation(ImageHub.CHARACTER.long_idle);
+            SoundHub.CHARACTER.longIdle.play();
+        } else if (this.isInIdleAnimation()) {
+            SoundHub.CHARACTER.longIdle.pause();
+            this.characterAnimation(ImageHub.CHARACTER.idle);
+        }
+    }
+
+    handleMovement() {
+        if (this.isDead()) return;
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+        }
+        if (this.world.keyboard.LEFT && this.x > 100) {
+            this.moveLeft();
+        }
+        if (this.world.keyboard.UP && !this.isAboveGround()) {
+            this.jump();
+            SoundHub.CHARACTER.jump.currentTime = 0;
+            SoundHub.CHARACTER.jump.play();
+        }
+    }
+
+    handleState() {
+        if (this.isDead()) return this.checkDeath();
+        if (this.isHurt()) return this.playHurt();
+        if (this.isAboveGround()) return this.playJump();
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) return this.playWalk();
+        SoundHub.CHARACTER.walk.pause();
+    }
+
+    playHurt() {
+        this.characterAnimation(ImageHub.CHARACTER.hurt);
+        SoundHub.CHARACTER.damage.play();
+    }
+
+    playJump() {
+        this.characterAnimation(ImageHub.CHARACTER.jump);
+    }
+
+    playWalk() {
+        this.characterAnimation(ImageHub.CHARACTER.walk);
+        SoundHub.CHARACTER.walk.play();
+        this.longIdleDetector = new Date().getTime();
     }
 
     isInIdleAnimation() {
@@ -105,10 +111,13 @@ export class Character extends MovableObject {
         this.world.gameOver = true;
         SoundHub.CHARACTER.death.play();
         IntervalHub.stopAllIntervals();
+        this.playDeathSequence();
+    }
 
-        ImageHub.CHARACTER.dead.forEach((images, i) => {
+    playDeathSequence() {
+        ImageHub.CHARACTER.dead.forEach((frame, i) => {
             setTimeout(() => {
-                this.img = this.imageCache[images];
+                this.img = this.imageCache[frame];
                 if (i === ImageHub.CHARACTER.dead.length - 1) {
                     document.getElementById("gameOverScreen").classList.remove("displayNone");
                 }

@@ -1,5 +1,4 @@
 import { IntervalHub } from "../manager_classes/intervalHub.js";
-import { SoundHub } from "../manager_classes/soundHub.js";
 import { DrawableObject } from "./drawable-object.class.js";
 
 export class MovableObject extends DrawableObject {
@@ -50,7 +49,6 @@ export class MovableObject extends DrawableObject {
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
         return timePassed < 100;
-        SoundHub.CHARACTER.damage.pause();
     }
 
     moveRight() {

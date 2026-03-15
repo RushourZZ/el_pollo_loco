@@ -124,25 +124,27 @@ export class World {
             document.getElementById("gameWonScreen").classList.remove("displayNone");
         }, 1000);
     }
-    
+
     checkThrowableHits() {
         this.throwableObjects.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
-                if (bottle.isColliding(enemy)) {
-                    if (enemy instanceof Endboss) {
-                        enemy.hit();
-                        this.endbossStatusBar.setPercentage(enemy.energy);
-                    } else {
-                        enemy.energy = 0;
-                        setTimeout(() => {
-                            this.level.enemies = this.level.enemies.filter((e) => e !== enemy);
-                        }, 500);
-                    }
-                    bottle.startSplash();
-                }
+                if (bottle.isColliding(enemy)) this.handleBottleHit(bottle, enemy);
             });
         });
-        this.throwableObjects = this.throwableObjects.filter((bottle) => !bottle.hasSplashed);
+        this.throwableObjects = this.throwableObjects.filter((b) => !b.hasSplashed);
+    }
+
+    handleBottleHit(bottle, enemy) {
+        if (enemy instanceof Endboss) {
+            enemy.hit();
+            this.endbossStatusBar.setPercentage(enemy.energy);
+        } else {
+            enemy.energy = 0;
+            setTimeout(() => {
+                this.level.enemies = this.level.enemies.filter((e) => e !== enemy);
+            }, 500);
+        }
+        bottle.startSplash();
     }
     checkThrowObjects() {
         if (this.keyboard.D && this.collectedBottles > 0) {
@@ -153,29 +155,24 @@ export class World {
             this.keyboard.D = false;
         }
     }
+    
     //#region draw objects
     drawBackgroundLoop() {
-        const backgroundSegmentWidth = 719;
-        const backgroundSegments = 10;
-
-        for (let i = 0; i < backgroundSegments; i++) {
-            let variant = Math.abs(i % 2);
-            this.backgroundObjects.push(
-                new BackgroundObject(ImageHub.BACKGROUND_LAYERS.air[0], i * backgroundSegmentWidth),
-                new BackgroundObject(
-                    ImageHub.BACKGROUND_LAYERS.third_layer[variant],
-                    i * backgroundSegmentWidth,
-                ),
-                new BackgroundObject(
-                    ImageHub.BACKGROUND_LAYERS.second_layer[variant],
-                    i * backgroundSegmentWidth,
-                ),
-                new BackgroundObject(
-                    ImageHub.BACKGROUND_LAYERS.first_layer[variant],
-                    i * backgroundSegmentWidth,
-                ),
-            );
+        const segmentWidth = 719;
+        for (let i = 0; i < 10; i++) {
+            this.createBackgroundSegment(i, segmentWidth);
         }
+    }
+
+    createBackgroundSegment(i, width) {
+        let variant = Math.abs(i % 2);
+        let x = i * width;
+        this.backgroundObjects.push(
+            new BackgroundObject(ImageHub.BACKGROUND_LAYERS.air[0], x),
+            new BackgroundObject(ImageHub.BACKGROUND_LAYERS.third_layer[variant], x),
+            new BackgroundObject(ImageHub.BACKGROUND_LAYERS.second_layer[variant], x),
+            new BackgroundObject(ImageHub.BACKGROUND_LAYERS.first_layer[variant], x),
+        );
     }
 
     setWorld() {
@@ -184,31 +181,32 @@ export class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
-
         this.ctx.translate(-this.camera_x, 0);
+        this.drawHUD();
+        this.ctx.translate(this.camera_x, 0);
+        this.drawGameObjects();
+        this.ctx.translate(-this.camera_x, 0);
+        requestAnimationFrame(() => this.draw());
+    }
+
+    drawHUD() {
         this.addToMap(this.statusBar);
         this.addToMap(this.coinStatusBar);
         this.addToMap(this.bottleStatusBar);
-        if (this.endboss && this.endboss.alertPlayed) this.addToMap(this.endbossStatusBar);
-        this.ctx.translate(this.camera_x, 0);
+        if (this.endboss && this.endboss.alertPlayed) {
+            this.addToMap(this.endbossStatusBar);
+        }
+    }
 
+    drawGameObjects() {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
-        this.ctx.translate(-this.camera_x, 0);
-
-        // ? Draw wird immer wieder neu aufgerufen
-        let self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        });
     }
     addObjectsToMap(objects) {
         objects.forEach((o) => {

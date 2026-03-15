@@ -55,21 +55,11 @@ export class Endboss extends MovableObject {
     }
 
     updateAnimation() {
-        if (this.isDead()) {
-            this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.dead);
-            SoundHub.ENDBOSS.approach.play();
-        } else if (this.isHurt()) {
-            this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.hurt);
-        } else if (this.isAlerted && !this.alertPlayed) {
-            this.playAlert();
-            
-        } else if (this.isAttacking) {
-            this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.attack);
-            
-        } else if (this.isAlerted) {
-            this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.walk);
-            
-        }
+        if (this.isDead()) return this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.dead);
+        if (this.isHurt()) return this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.hurt);
+        if (this.isAlerted && !this.alertPlayed) return this.playAlert();
+        if (this.isAttacking) return this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.attack);
+        if (this.isAlerted) return this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.walk);
     }
 
     playAlert() {
