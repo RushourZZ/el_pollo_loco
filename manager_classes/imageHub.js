@@ -1,4 +1,8 @@
+/**
+ * Zentrale Verwaltung aller Bildpfade, organisiert nach Kategorien.
+ */
 export class ImageHub {
+    /** @type {{idle: string[], long_idle: string[], walk: string[], jump: string[], hurt: string[], dead: string[], pepe: string[]}} */
     static CHARACTER = {
         idle: [
             "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -93,6 +97,7 @@ export class ImageHub {
         pepe: ["img/2_character_pepe/Pepe.png"],
     };
 
+    /** @type {{walk: string[], dead: string[]}} */
     static ENEMIES_CHICKEN_NORMAL = {
         walk: [
             "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
@@ -103,6 +108,7 @@ export class ImageHub {
         dead: ["img/3_enemies_chicken/chicken_normal/2_dead/dead.png"],
     };
 
+    /** @type {{walk: string[], dead: string[]}} */
     static ENEMIES_CHICKEN_SMALL = {
         walk: [
             "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
@@ -113,6 +119,7 @@ export class ImageHub {
         dead: ["img/3_enemies_chicken/chicken_small/2_dead/dead.png"],
     };
 
+    /** @type {{walk: string[], alert: string[], attack: string[], hurt: string[], dead: string[]}} */
     static ENEMIE_BOSS_CHICKEN = {
         walk: [
             "img/4_enemie_boss_chicken/1_walk/G1.png",
@@ -156,6 +163,7 @@ export class ImageHub {
         ],
     };
 
+    /** @type {{first_layer: string[], second_layer: string[], third_layer: string[], clouds: string[], air: string[]}} */
     static BACKGROUND_LAYERS = {
         first_layer: [
             "img/5_background/layers/1_first_layer/1.png",
@@ -184,6 +192,7 @@ export class ImageHub {
         air: ["img/5_background/layers/air.png"],
     };
 
+    /** @type {{rotation: string[], splash: string[], on_ground_left: string[], on_ground_right: string[]}} */
     static SALSA_BOTTLE = {
         rotation: [
             "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
@@ -206,6 +215,7 @@ export class ImageHub {
         on_ground_right: ["img/6_salsa_bottle/2_salsa_bottle_on_ground.png"],
     };
 
+    /** @type {Object<string, string[]>} */
     static STATUSBARS = {
         statusbar_player_coin_blue: [
             "img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png",
@@ -244,6 +254,7 @@ export class ImageHub {
         ],
     };
 
+    /** @type {{game_icon: string[], coin: string[]}} */
     static ICONS = {
         game_icon: [
             "img/7_statusbars/3_icons/icon_coin.png",
@@ -255,6 +266,7 @@ export class ImageHub {
         coin: ["img/8_coin/coin_1.png", "img/8_coin/coin_2.png"],
     };
 
+    /** @type {{game_over: string[], game_won: string[], start: string[]}} */
     static INTRO_OUTRO_SCREENS = {
         game_over: ["img/You_won,_you_lost/you_lost_b.png"],
         game_won: ["img/You_won,_you_lost/you_won_a.png"],
@@ -262,6 +274,10 @@ export class ImageHub {
         start: ["img/9_intro_outro_screens/start/startscreen_2.png"],
     };
 
+    /**
+     * Sammelt alle Bildpfade aus allen Kategorien in ein flaches Array.
+     * @returns {string[]} Array aller registrierten Bildpfade.
+     */
     static getAllPaths() {
         let paths = [];
         for (let category of Object.values(ImageHub)) {

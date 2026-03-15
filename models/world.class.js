@@ -11,26 +11,52 @@ import { Endboss } from "./endboss.class.js";
 import { EndbossStatusBar } from "./endboss-status-bar.class.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
+/**
+ * Zentrale Spielwelt-Klasse, verwaltet Spielobjekte, Kollisionen und das Rendering.
+ */
 export class World {
+    /** @type {Character} */
     character = new Character();
+    /** @type {Level} */
     level;
+    /** @type {MovableObject[]} */
     enemies;
+    /** @type {Cloud[]} */
     clouds;
+    /** @type {BackgroundObject[]} */
     backgroundObjects;
+    /** @type {HTMLCanvasElement} */
     canvas;
+    /** @type {CanvasRenderingContext2D} */
     ctx;
+    /** @type {Keyboard} */
     keyboard;
+    /** @type {number} */
     camera_x = 50;
+    /** @type {StatusBar} */
     statusBar = new StatusBar();
+    /** @type {ThrowableObject[]} */
     throwableObjects = [];
+    /** @type {CoinStatusBar} */
     coinStatusBar = new CoinStatusBar();
+    /** @type {BottleStatusBar} */
     bottleStatusBar = new BottleStatusBar();
+    /** @type {number} */
     collectedCoins = 0;
+    /** @type {number} */
     collectedBottles = 0;
+    /** @type {EndbossStatusBar} */
     endbossStatusBar = new EndbossStatusBar();
+    /** @type {Endboss|null} */
     endboss = null;
+    /** @type {boolean} */
     gameOver = false;
 
+    /**
+     * Erstellt die Spielwelt und initialisiert Level, Canvas und alle Subsysteme.
+     * @param {HTMLCanvasElement} canvas - Das Canvas-Element fuer die Darstellung.
+     * @param {Keyboard} keyboard - Die Tastatureingabe-Instanz.
+     */
     constructor(canvas, keyboard) {
         this.level = createLevel1();
         this.enemies = this.level.enemies;
@@ -46,6 +72,9 @@ export class World {
         this.run();
     }
 
+    /**
+     * Startet den Haupt-Spielintervall fuer Kollisionen und Spiellogik.
+     */
     run() {
         IntervalHub.startInterval(() => {
             this.checkCollisions();
@@ -56,6 +85,9 @@ export class World {
     }
 
     //#region check collisions
+    /**
+     * Prueft alle Kollisionsarten: Gegner, Muenzen, Flaschen und Wurfgeschosse.
+     */
     checkCollisions() {
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
@@ -63,6 +95,9 @@ export class World {
         this.checkThrowableHits();
     }
 
+    /**
+     * Prueft Kollisionen zwischen dem Charakter und allen Gegnern.
+     */
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.isDead()) {
@@ -77,11 +112,19 @@ export class World {
         });
     }
 
+    /**
+     * Prueft, ob der Charakter einen Gegner von oben trifft (Stomp).
+     * @param {MovableObject} enemy - Der zu pruefende Gegner.
+     * @returns {boolean} True, wenn der Charakter den Gegner von oben trifft.
+     */
     isStompingEnemy(enemy) {
         if (enemy instanceof Endboss) return false;
         return this.character.speedY < 0;
     }
 
+    /**
+     * Erkennt und verarbeitet das Einsammeln von Muenzen.
+     */
     checkCoinCollisions() {
         this.level.coins = this.level.coins.filter((coin) => {
             if (this.character.isColliding(coin)) {
@@ -95,6 +138,10 @@ export class World {
             return true;
         });
     }
+
+    /**
+     * Erkennt und verarbeitet das Einsammeln von Flaschen.
+     */
     checkBottleCollisions() {
         this.level.bottles = this.level.bottles.filter((bottle) => {
             if (this.character.isColliding(bottle)) {
@@ -110,6 +157,9 @@ export class World {
     //#endregion check collisions
 
     //#region check endboss
+    /**
+     * Prueft, ob der Endboss alarmiert werden soll, und loest ggf. Angriffe aus.
+     */
     checkEndbossAlert() {
         if (!this.endboss || this.endboss.isDead()) return;
         if (this.character.x > 1900) {
@@ -120,6 +170,9 @@ export class World {
         }
     }
 
+    /**
+     * Prueft, ob der Endboss besiegt wurde, und zeigt den Gewinn-Bildschirm.
+     */
     checkEndbossDefeated() {
         if (!this.endboss || !this.endboss.isDead() || this.gameOver) return;
         this.gameOver = true;
@@ -131,6 +184,9 @@ export class World {
     //#endregion check endboss
 
     //#region check throwable hits
+    /**
+     * Prueft Treffer von Wurfgeschossen auf Gegner und entfernt zersplitterte Flaschen.
+     */
     checkThrowableHits() {
         this.throwableObjects.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
@@ -140,6 +196,11 @@ export class World {
         this.throwableObjects = this.throwableObjects.filter((b) => !b.hasSplashed);
     }
 
+    /**
+     * Verarbeitet den Treffer einer geworfenen Flasche auf einen Gegner.
+     * @param {ThrowableObject} bottle - Das Wurfgeschoss.
+     * @param {MovableObject} enemy - Der getroffene Gegner.
+     */
     handleBottleHit(bottle, enemy) {
         if (enemy instanceof Endboss) {
             enemy.hit();
@@ -152,6 +213,10 @@ export class World {
         }
         bottle.startSplash();
     }
+
+    /**
+     * Erstellt ein Wurfgeschoss, wenn der Spieler wirft und Flaschen besitzt.
+     */
     checkThrowObjects() {
         if (this.keyboard.D && this.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.x, this.character.y);
@@ -164,6 +229,9 @@ export class World {
     //#endregion check throwable hits
 
     //#region draw objects
+    /**
+     * Erstellt die sich wiederholenden Hintergrund-Segmente der Spielwelt.
+     */
     drawBackgroundLoop() {
         const segmentWidth = 719;
         for (let i = 0; i < 10; i++) {
@@ -171,6 +239,11 @@ export class World {
         }
     }
 
+    /**
+     * Erzeugt ein einzelnes Hintergrund-Segment aus vier Parallax-Ebenen.
+     * @param {number} i - Der Segment-Index.
+     * @param {number} width - Die Breite eines Segments in Pixeln.
+     */
     createBackgroundSegment(i, width) {
         let variant = i % 2;
         let x = i * width;
@@ -182,10 +255,16 @@ export class World {
         );
     }
 
+    /**
+     * Setzt die Referenz der Spielwelt im Charakter-Objekt.
+     */
     setWorld() {
         this.character.world = this;
     }
 
+    /**
+     * Haupt-Render-Loop: loescht Canvas und zeichnet alle Ebenen pro Frame.
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -198,6 +277,9 @@ export class World {
         requestAnimationFrame(() => this.draw());
     }
 
+    /**
+     * Zeichnet die HUD-Elemente (Statusleisten) ohne Kamera-Verschiebung.
+     */
     drawHUD() {
         this.addToMap(this.statusBar);
         this.addToMap(this.coinStatusBar);
@@ -207,6 +289,9 @@ export class World {
         }
     }
 
+    /**
+     * Zeichnet alle dynamischen Spielobjekte (Charakter, Wolken, Gegner, Items).
+     */
     drawGameObjects() {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
@@ -215,12 +300,21 @@ export class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
     }
+
+    /**
+     * Fuegt ein Array von Objekten zur Zeichenflaeche hinzu.
+     * @param {DrawableObject[]} objects - Die zu zeichnenden Objekte.
+     */
     addObjectsToMap(objects) {
         objects.forEach((o) => {
             this.addToMap(o);
         });
     }
 
+    /**
+     * Zeichnet ein einzelnes Objekt auf das Canvas, ggf. horizontal gespiegelt.
+     * @param {DrawableObject} mo - Das zu zeichnende Objekt.
+     */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
@@ -235,6 +329,10 @@ export class World {
     }
     //#endregion draw objects
 
+    /**
+     * Spiegelt ein Objekt horizontal fuer die Darstellung in Gegenrichtung.
+     * @param {DrawableObject} mo - Das zu spiegelnde Objekt.
+     */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -242,6 +340,10 @@ export class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Setzt die horizontale Spiegelung eines Objekts zurueck.
+     * @param {DrawableObject} mo - Das zurueckzusetzende Objekt.
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();

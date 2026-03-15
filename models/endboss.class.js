@@ -4,19 +4,37 @@ import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { SmallChicken } from "./small-chicken.class.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
+/**
+ * Endboss-Gegner mit Alarmierung, Angriff und Bewegungslogik.
+ * @extends MovableObject
+ */
 export class Endboss extends MovableObject {
+    /** @type {number} */
     height = 500;
+    /** @type {number} */
     width = 300;
+    /** @type {number} */
     y = -10;
+    /** @type {boolean} */
     hasFrame = true;
+    /** @type {boolean} */
     isAlerted = false;
+    /** @type {boolean} */
     alertPlayed = false;
+    /** @type {number} */
     lastAttack = 0;
+    /** @type {number} */
     lastDirectionChange = 0;
+    /** @type {boolean} */
     movingRight = true;
+    /** @type {number} */
     speed = 1.5;
+    /** @type {{top: number, bottom: number, left: number, right: number}} */
     offset = { top: 60, bottom: 10, left: 30, right: 30 };
 
+    /**
+     * Erstellt den Endboss, laedt alle Animationsbilder und startet die Animation.
+     */
     constructor() {
         super();
         this.loadImage(ImageHub.ENEMIE_BOSS_CHICKEN.walk[0]);
@@ -29,6 +47,9 @@ export class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Startet Bewegungs- und Animations-Intervalle des Endbosses.
+     */
     animate() {
         IntervalHub.startInterval(() => {
             this.moveEndboss();
@@ -38,6 +59,9 @@ export class Endboss extends MovableObject {
         }, 150);
     }
 
+    /**
+     * Steuert die Hin-und-Her-Bewegung des Endbosses nach Alarmierung.
+     */
     moveEndboss() {
         if (!this.isAlerted || this.isDead()) return;
         let now = Date.now();
@@ -54,6 +78,9 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Waehlt die passende Animation basierend auf dem aktuellen Zustand.
+     */
     updateAnimation() {
         if (this.isDead()) return this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.dead);
         if (this.isHurt()) return this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.hurt);
@@ -62,6 +89,9 @@ export class Endboss extends MovableObject {
         if (this.isAlerted) return this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.walk);
     }
 
+    /**
+     * Spielt die Alarm-Animation einmalig ab und markiert sie als abgeschlossen.
+     */
     playAlert() {
         this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.alert);
         if (this.currentImage >= ImageHub.ENEMIE_BOSS_CHICKEN.alert.length) {
@@ -70,6 +100,9 @@ export class Endboss extends MovableObject {
         }
     }
 
+    /**
+     * Versetzt den Endboss in den alarmierten Zustand und spielt den Annaehrungssound.
+     */
     triggerAlert() {
         if (this.isAlerted) return;
         this.isAlerted = true;
@@ -78,6 +111,10 @@ export class Endboss extends MovableObject {
         SoundHub.ENDBOSS.approach.play();
     }
 
+    /**
+     * Versucht einen Angriff: spawnt kleine Huehner mit Cooldown-Pruefung.
+     * @param {World} world - Referenz auf die Spielwelt fuer das Spawnen.
+     */
     tryAttack(world) {
         let now = Date.now();
         if (now - this.lastAttack < 3000) return;
@@ -95,6 +132,10 @@ export class Endboss extends MovableObject {
         }, 150 * ImageHub.ENEMIE_BOSS_CHICKEN.attack.length);
     }
 
+    /**
+     * Wechselt zum naechsten Frame der uebergebenen Endboss-Animationssequenz.
+     * @param {string[]} images - Array der Bildpfade fuer die Animation.
+     */
     endbossAnimation(images) {
         let i = this.currentImage % images.length;
         this.img = this.imageCache[images[i]];

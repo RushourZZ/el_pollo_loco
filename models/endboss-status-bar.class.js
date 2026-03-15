@@ -1,9 +1,17 @@
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { DrawableObject } from "./drawable-object.class.js";
 
+/**
+ * Statusleiste fuer die Gesundheit des Endbosses.
+ * @extends DrawableObject
+ */
 export class EndbossStatusBar extends DrawableObject {
+    /** @type {number} */
     percentage = 100;
 
+    /**
+     * Erstellt die Endboss-Statusleiste mit Anfangswert 100%.
+     */
     constructor() {
         super();
         this.loadImages(ImageHub.STATUSBARS.statusbar_endboss);
@@ -14,12 +22,20 @@ export class EndbossStatusBar extends DrawableObject {
         this.height = 60;
     }
 
+    /**
+     * Aktualisiert den Prozentwert und das angezeigte Bild der Endboss-Leiste.
+     * @param {number} percentage - Der neue Prozentwert (0-100).
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = ImageHub.STATUSBARS.statusbar_endboss[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Ermittelt den Bildindex anhand des aktuellen Prozentwerts.
+     * @returns {number} Index des passenden Statusleisten-Bildes (0-5).
+     */
     resolveImageIndex() {
         if (this.percentage >= 100) return 5;
         if (this.percentage >= 80) return 4;

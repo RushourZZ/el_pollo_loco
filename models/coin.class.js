@@ -2,11 +2,21 @@ import { DrawableObject } from "./drawable-object.class.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
+/**
+ * Sammelbare Muenze mit Rotationsanimation.
+ * @extends DrawableObject
+ */
 export class Coin extends DrawableObject {
+    /** @type {number} */
     height = 100;
+    /** @type {number} */
     width = 100;
+    /** @type {{top: number, bottom: number, left: number, right: number}} */
     offset = { top: 10, bottom: 10, left: 10, right: 10 };
 
+    /**
+     * Erstellt eine Muenze an zufaelliger Position und startet die Animation.
+     */
     constructor() {
         super();
         this.loadImage(ImageHub.ICONS.coin[0]);
@@ -16,6 +26,9 @@ export class Coin extends DrawableObject {
         this.animate();
     }
 
+    /**
+     * Startet die Rotationsanimation der Muenze.
+     */
     animate() {
         IntervalHub.startInterval(() => {
             let i = this.currentImage % ImageHub.ICONS.coin.length;
