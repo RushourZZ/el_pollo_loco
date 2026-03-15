@@ -65,4 +65,12 @@ export class SoundHub {
             sound.volume = 0.2;
         });
     }
+
+    static resetAllSounds() {
+        this.getAllSounds().forEach((sound) => {
+            sound.pause();
+            sound.currentTime = 0;
+
+        })
+    }
 }

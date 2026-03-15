@@ -171,7 +171,7 @@ footer a:active {
     display: none;
 }
 
-#quitButton, #quitButtonWon {
+#quitButton, #quitButtonWon, #restartButton, #restartButtonWon {
     position: relative;
     padding: 16px 40px;
     font-size: 24px;
@@ -182,11 +182,11 @@ footer a:active {
     cursor: pointer;
 }
 
-#quitButton:hover, #quitButtonWon:hover {
+#quitButton:hover, #quitButtonWon:hover, #restartButton:hover, #restartButtonWon:hover {
     background: #f48c06;
 }
 
-#quitButton:active, #quitButtonWon:active {
+#quitButton:active, #quitButtonWon:active, #restartButton:active, #restartButtonWon:active {
     background: #c54d03;
 }
 /* #endregion game over screen */
