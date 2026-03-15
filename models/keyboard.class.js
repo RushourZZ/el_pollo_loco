@@ -18,9 +18,12 @@ export class Keyboard {
 
     addKeydownListener() {
         let keyMap = {
-            ArrowRight: "RIGHT", ArrowLeft: "LEFT",
-            ArrowUp: "UP", ArrowDown: "DOWN",
-            " ": "SPACE", d: "D",
+            ArrowRight: "RIGHT",
+            ArrowLeft: "LEFT",
+            ArrowUp: "UP",
+            ArrowDown: "DOWN",
+            " ": "SPACE",
+            d: "D",
         };
         window.addEventListener("keydown", (e) => {
             if (keyMap[e.key]) this[keyMap[e.key]] = true;
@@ -29,8 +32,10 @@ export class Keyboard {
 
     addKeyupListener() {
         let keyMap = {
-            ArrowRight: "RIGHT", ArrowLeft: "LEFT",
-            ArrowUp: "UP", ArrowDown: "DOWN",
+            ArrowRight: "RIGHT",
+            ArrowLeft: "LEFT",
+            ArrowUp: "UP",
+            ArrowDown: "DOWN",
             " ": "SPACE",
         };
         window.addEventListener("keyup", (e) => {
@@ -47,13 +52,21 @@ export class Keyboard {
     bindTouch(id, key) {
         let btn = document.getElementById(id);
         if (!btn) return;
-        btn.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            this[key] = true;
-        }, {passive: false });
-        btn.addEventListener("touchend", (e) => {
-            e.preventDefault();
-            this[key] = false;
-        }, {passive: false });
+        btn.addEventListener(
+            "touchstart",
+            (e) => {
+                e.preventDefault();
+                this[key] = true;
+            },
+            { passive: false },
+        );
+        btn.addEventListener(
+            "touchend",
+            (e) => {
+                e.preventDefault();
+                this[key] = false;
+            },
+            { passive: false },
+        );
     }
 }

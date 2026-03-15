@@ -6,7 +6,7 @@ export class Bottle extends DrawableObject {
     height = 100;
     width = 100;
 
-    constructor(){
+    constructor() {
         super();
         this.loadImage(ImageHub.SALSA_BOTTLE.on_ground_left[0]);
         this.x = 400 + Math.random() * 1800;

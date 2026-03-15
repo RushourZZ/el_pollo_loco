@@ -33,7 +33,7 @@ export class ThrowableObject extends MovableObject {
             if (this.y >= 350) this.startSplash();
         }, 1000 / 60);
     }
-// #region splash animation
+    // #region splash animation
     startSplash() {
         if (this.splashing) return;
         this.splashing = true;
@@ -46,7 +46,6 @@ export class ThrowableObject extends MovableObject {
     splashAnimation() {
         if (this.currentImage >= ImageHub.SALSA_BOTTLE.splash.length) {
             this.hasSplashed = true;
-            
 
             return;
         }

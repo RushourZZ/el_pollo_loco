@@ -1,13 +1,13 @@
 import { DrawableObject } from "./drawable-object.class.js";
-import {ImageHub} from "../manager_classes/imageHub.js";
+import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
 export class Coin extends DrawableObject {
     height = 100;
     width = 100;
-    offset = { top: 10, bottom: 10, left: 10, right: 10 }
+    offset = { top: 10, bottom: 10, left: 10, right: 10 };
 
-    constructor(){
+    constructor() {
         super();
         this.loadImage(ImageHub.ICONS.coin[0]);
         this.loadImages(ImageHub.ICONS.coin);

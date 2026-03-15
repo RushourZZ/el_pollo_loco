@@ -102,6 +102,7 @@ export class ImageHub {
 
         dead: ["img/3_enemies_chicken/chicken_normal/2_dead/dead.png"],
     };
+
     static ENEMIES_CHICKEN_SMALL = {
         walk: [
             "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
@@ -152,7 +153,6 @@ export class ImageHub {
             "img/4_enemie_boss_chicken/5_dead/G24.png",
             "img/4_enemie_boss_chicken/5_dead/G25.png",
             "img/4_enemie_boss_chicken/5_dead/G26.png",
-            
         ],
     };
 
@@ -252,8 +252,7 @@ export class ImageHub {
             "img/7_statusbars/3_icons/icon_salsa_bottle.png",
         ],
 
-        coin: ["img/8_coin/coin_1.png", 
-            "img/8_coin/coin_2.png"],
+        coin: ["img/8_coin/coin_1.png", "img/8_coin/coin_2.png"],
     };
 
     static INTRO_OUTRO_SCREENS = {

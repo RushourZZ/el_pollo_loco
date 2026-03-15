@@ -39,14 +39,17 @@ export class SoundHub {
     static getAllSounds() {
         let sounds = [this.gameStart, this.BACKGROUND];
         let categories = [
-            this.CHARACTER, this.CHICKEN_NORMAL, this.ENDBOSS,
-            this.SMALL_CHICKEN_DEATH, this.COLLECTIBLE, this.THROWABLE,
+            this.CHARACTER,
+            this.CHICKEN_NORMAL,
+            this.ENDBOSS,
+            this.SMALL_CHICKEN_DEATH,
+            this.COLLECTIBLE,
+            this.THROWABLE,
         ];
         categories.forEach((cat) => sounds.push(...Object.values(cat)));
         return sounds;
     }
 
-  
     static toggleMute() {
         this.isMuted = !this.isMuted;
         localStorage.setItem("muted", this.isMuted);
@@ -64,7 +67,6 @@ export class SoundHub {
         this.getAllSounds().forEach((sound) => {
             sound.pause();
             sound.currentTime = 0;
-
-        })
+        });
     }
 }

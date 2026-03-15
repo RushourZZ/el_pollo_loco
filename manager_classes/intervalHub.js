@@ -1,5 +1,4 @@
-export class IntervalHub { 
-
+export class IntervalHub {
     static allIntervals = [];
 
     static startInterval(func, timer) {

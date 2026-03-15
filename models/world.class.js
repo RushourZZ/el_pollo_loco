@@ -11,7 +11,6 @@ import { Endboss } from "./endboss.class.js";
 import { EndbossStatusBar } from "./endboss-status-bar.class.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
-
 export class World {
     character = new Character();
     level;
@@ -30,7 +29,7 @@ export class World {
     collectedBottles = 0;
     endbossStatusBar = new EndbossStatusBar();
     endboss = null;
-    gameOver= false;
+    gameOver = false;
 
     constructor(canvas, keyboard) {
         this.level = createLevel1();
@@ -56,12 +55,14 @@ export class World {
         }, 40);
     }
 
+    //#region check collisions
     checkCollisions() {
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
         this.checkBottleCollisions();
         this.checkThrowableHits();
     }
+
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !enemy.isDead()) {
@@ -80,6 +81,7 @@ export class World {
         if (enemy instanceof Endboss) return false;
         return this.character.speedY < 0;
     }
+
     checkCoinCollisions() {
         this.level.coins = this.level.coins.filter((coin) => {
             if (this.character.isColliding(coin)) {
@@ -105,7 +107,9 @@ export class World {
             return true;
         });
     }
+    //#endregion check collisions
 
+    //#region check endboss
     checkEndbossAlert() {
         if (!this.endboss || this.endboss.isDead()) return;
         if (this.character.x > 1900) {
@@ -124,7 +128,9 @@ export class World {
             document.getElementById("gameWonScreen").classList.remove("displayNone");
         }, 1000);
     }
+    //#endregion check endboss
 
+    //#region check throwable hits
     checkThrowableHits() {
         this.throwableObjects.forEach((bottle) => {
             this.level.enemies.forEach((enemy) => {
@@ -155,7 +161,8 @@ export class World {
             this.keyboard.D = false;
         }
     }
-    
+    //#endregion check throwable hits
+
     //#region draw objects
     drawBackgroundLoop() {
         const segmentWidth = 719;
@@ -165,7 +172,7 @@ export class World {
     }
 
     createBackgroundSegment(i, width) {
-        let variant = Math.abs(i % 2);
+        let variant = i % 2;
         let x = i * width;
         this.backgroundObjects.push(
             new BackgroundObject(ImageHub.BACKGROUND_LAYERS.air[0], x),

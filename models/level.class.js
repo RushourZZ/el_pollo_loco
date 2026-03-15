@@ -1,5 +1,3 @@
-
-
 export class Level {
     enemies;
     clouds;
@@ -12,7 +10,7 @@ export class Level {
         this.enemies = enemies;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
-        
+
         this.coins = coins;
         this.bottles = bottles;
     }

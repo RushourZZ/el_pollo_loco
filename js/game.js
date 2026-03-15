@@ -4,11 +4,8 @@ import { SoundHub } from "../manager_classes/soundHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 
-
 let canvas;
-
 let world;
-
 let keyboard = new Keyboard();
 
 //#region event listeners
@@ -20,7 +17,6 @@ document.getElementById("restartButton").addEventListener("click", restartGame);
 document.getElementById("restartButtonWon").addEventListener("click", restartGame);
 //#endregion event listeners
 
-//#region 
 async function startGame() {
     document.getElementById("startScreen").classList.add("displayNone");
     await preloadImages();
@@ -43,16 +39,12 @@ function init() {
 
 function toggleMute() {
     SoundHub.toggleMute();
-    document.getElementById("muteButton").textContent = SoundHub.isMuted
-        ? "🔇"
-        : "🔈";
+    document.getElementById("muteButton").textContent = SoundHub.isMuted ? "🔇" : "🔈";
 }
 
 function muteState() {
     SoundHub.applyMute();
-    document.getElementById("muteButton").textContent = SoundHub.isMuted
-        ? "🔇"
-        : "🔈";
+    document.getElementById("muteButton").textContent = SoundHub.isMuted ? "🔇" : "🔈";
 }
 
 muteState();
@@ -66,7 +58,6 @@ function restartGame() {
     SoundHub.gameStart.play();
     SoundHub.BACKGROUND.play();
 }
-
 
 function preloadImages() {
     let paths = ImageHub.getAllPaths();

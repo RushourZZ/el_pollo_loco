@@ -9,7 +9,7 @@ export class SmallChicken extends MovableObject {
     width = 40;
     hasFrame = true;
     deathSoundPlayed = false;
-    offset = {top: 5, left: 5, right: 5, bottom: 5};
+    offset = { top: 5, left: 5, right: 5, bottom: 5 };
 
     constructor(x) {
         super();

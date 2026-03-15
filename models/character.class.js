@@ -11,7 +11,7 @@ export class Character extends MovableObject {
     hasFrame = true;
     deathAnimationStarted = false;
     longIdleDetector = new Date().getTime();
-    offset = {top: 120, left: 20, right: 30, bottom: 15};
+    offset = { top: 120, left: 20, right: 30, bottom: 15 };
 
     constructor() {
         super();
@@ -23,7 +23,6 @@ export class Character extends MovableObject {
         this.loadImages(ImageHub.CHARACTER.hurt);
         this.loadImages(ImageHub.CHARACTER.dead);
         this.applyGravity();
-
         this.animate();
     }
 
