@@ -76,7 +76,6 @@ export class Endboss extends MovableObject {
         this.currentImage = 0;
         SoundHub.ENDBOSS.approach.volume = 1.0;
         SoundHub.ENDBOSS.approach.play();
-        console.log("ENDBOSS SOUND PLAYED");
     }
 
     tryAttack(world) {

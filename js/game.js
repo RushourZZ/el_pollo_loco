@@ -34,7 +34,6 @@ function init() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     window.world = world;
-    console.log("My Caracter is", world.character);
 }
 
 function toggleMute() {
