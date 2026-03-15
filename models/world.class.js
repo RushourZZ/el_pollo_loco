@@ -11,7 +11,6 @@ import { Endboss } from "./endboss.class.js";
 import { EndbossStatusBar } from "./endboss-status-bar.class.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
-
 export class World {
     character = new Character();
     level;
@@ -51,7 +50,7 @@ export class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkEndbossAlert();
-        }, 200);
+        }, 40);
     }
 
     checkCollisions() {
@@ -62,18 +61,27 @@ export class World {
     }
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
-                console.log("Collision detected", this.character.energy);
+            if (this.character.isColliding(enemy) && !enemy.isDead()) {
+                if (this.isStompingEnemy(enemy)) {
+                    enemy.energy = 0;
+                    this.character.speedY = 15;
+                } else {
+                    this.character.hit();
+                    this.statusBar.setPercentage(this.character.energy);
+                }
             }
         });
+    }
+
+    isStompingEnemy(enemy) {
+        if (enemy instanceof Endboss) return false;
+        return this.character.speedY < 0;
     }
     checkCoinCollisions() {
         this.level.coins = this.level.coins.filter((coin) => {
             if (this.character.isColliding(coin)) {
                 this.collectedCoins++;
-                
+
                 this.coinStatusBar.setPercentage((this.collectedCoins / 10) * 100);
                 SoundHub.COLLECTIBLE.coin.currentTime = 0;
                 SoundHub.COLLECTIBLE.coin.play();

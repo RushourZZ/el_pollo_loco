@@ -11,6 +11,7 @@ export class Character extends MovableObject {
     hasFrame = true;
     deathAnimationStarted = false;
     longIdleDetector = new Date().getTime();
+    offset = {top: 120, left: 20, right: 30, bottom: 15};
 
     constructor() {
         super();

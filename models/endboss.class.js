@@ -15,6 +15,7 @@ export class Endboss extends MovableObject {
     lastDirectionChange = 0;
     movingRight = true;
     speed = 1.5;
+    offset = { top: 60, bottom: 10, left: 30, right: 30 };
 
     constructor() {
         super();

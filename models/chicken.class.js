@@ -9,6 +9,7 @@ export class Chicken extends MovableObject {
     width = 70;
     hasFrame = true;
     deadSoundPlayed = false;
+    offset = {top: 5, left: 5, right: 5, bottom: 5};
 
     constructor() {
         super();

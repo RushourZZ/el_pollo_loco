@@ -20,7 +20,7 @@ export class SoundHub {
     };
 
     static BACKGROUND = new Audio(
-        "audio/background/daynigthmorning-new-dream-background-music-465079.mp3",
+        "audio/background/ikoliks_aj-latin-mexican-spanish-music-391962.mp3",
     );
 
     static SMALL_CHICKEN_DEATH = {

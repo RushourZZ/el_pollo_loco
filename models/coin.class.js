@@ -5,6 +5,7 @@ import { IntervalHub } from "../manager_classes/intervalHub.js";
 export class Coin extends DrawableObject {
     height = 100;
     width = 100;
+    offset = { top: 10, bottom: 10, left: 10, right: 10 }
 
     constructor(){
         super();
