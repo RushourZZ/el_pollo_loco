@@ -17,7 +17,7 @@ export class Character extends MovableObject {
     /** @type {number} */
     speed = 10;
     /** @type {boolean} */
-    hasFrame = true;
+    hasFrameForCollision = false;
     /** @type {boolean} */
     deathAnimationStarted = false;
     /** @type {number} */

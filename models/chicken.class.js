@@ -15,7 +15,7 @@ export class Chicken extends MovableObject {
     /** @type {number} */
     width = 70;
     /** @type {boolean} */
-    hasFrame = true;
+    hasFrameForCollision = false;
     /** @type {boolean} */
     deadSoundPlayed = false;
     /** @type {{top: number, left: number, right: number, bottom: number}} */

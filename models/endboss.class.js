@@ -16,7 +16,7 @@ export class Endboss extends MovableObject {
     /** @type {number} */
     y = -10;
     /** @type {boolean} */
-    hasFrame = true;
+    hasFrameForCollision = false;
     /** @type {boolean} */
     isAlerted = false;
     /** @type {boolean} */

@@ -11,7 +11,7 @@ export class ThrowableObject extends MovableObject {
     /** @type {boolean} */
     alwaysAboveGround = true;
     /** @type {boolean} */
-    hasFrame = true;
+    hasFrameForCollision = false;
     /** @type {boolean} */
     splashing = false;
     /** @type {boolean} */

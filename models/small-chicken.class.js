@@ -15,7 +15,7 @@ export class SmallChicken extends MovableObject {
     /** @type {number} */
     width = 40;
     /** @type {boolean} */
-    hasFrame = true;
+    hasFrameForCollision = false;
     /** @type {boolean} */
     deathSoundPlayed = false;
     /** @type {{top: number, left: number, right: number, bottom: number}} */
