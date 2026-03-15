@@ -39,6 +39,7 @@ export class ThrowableObject extends MovableObject {
         this.splashing = true;
         this.currentImage = 0;
         this.speedY = 0;
+        SoundHub.THROWABLE.bottle.currentTime = 0;
         SoundHub.THROWABLE.bottle.play();
     }
 

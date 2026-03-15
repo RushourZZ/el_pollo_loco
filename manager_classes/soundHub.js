@@ -53,6 +53,8 @@ export class SoundHub {
             this.THROWABLE.bottle,
         ];
     }
+
+  
     static toggleMute() {
         this.isMuted = !this.isMuted;
         localStorage.setItem("muted", this.isMuted);
@@ -62,7 +64,7 @@ export class SoundHub {
     static applyMute() {
         this.getAllSounds().forEach((sound) => {
             sound.muted = this.isMuted;
-            sound.volume = 0.2;
+            sound.volume = sound === this.BACKGROUND ? 0.1 : 0.4;
         });
     }
 
