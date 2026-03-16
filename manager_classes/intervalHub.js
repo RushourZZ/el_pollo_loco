@@ -1,14 +1,13 @@
 /**
- * Zentrale Verwaltung aller setInterval-Timer mit globaler Stopp-Funktion.
+ * Central management of all setInterval timers with a global stop function.
  */
 export class IntervalHub {
-    /** @type {number[]} */
     static allIntervals = [];
 
     /**
-     * Startet ein neues Intervall und registriert es fuer die zentrale Verwaltung.
-     * @param {Function} func - Die auszufuehrende Callback-Funktion.
-     * @param {number} timer - Das Intervall in Millisekunden.
+     * Starts a new interval and registers it for central management.
+     * @param {Function} func - The callback function to execute.
+     * @param {number} timer - The interval duration in milliseconds.
      */
     static startInterval(func, timer) {
         const newInterval = setInterval(func, timer);
@@ -16,7 +15,7 @@ export class IntervalHub {
     }
 
     /**
-     * Stoppt alle registrierten Intervalle und leert die Intervall-Liste.
+     * Stops all registered intervals and clears the interval list.
      */
     static stopAllIntervals() {
         IntervalHub.allIntervals.forEach(clearInterval);

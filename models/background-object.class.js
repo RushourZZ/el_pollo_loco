@@ -1,19 +1,17 @@
 import { MovableObject } from "./movable-object.class.js";
 
 /**
- * Hintergrundobjekt fuer die Parallax-Ebenen der Spielwelt.
+ * Background object for the parallax layers of the game world.
  * @extends MovableObject
  */
 export class BackgroundObject extends MovableObject {
-    /** @type {number} */
     width = 720;
-    /** @type {number} */
     height = 480;
 
     /**
-     * Erstellt ein Hintergrundobjekt an der angegebenen Position.
-     * @param {string} imagePath - Pfad zum Hintergrundbild.
-     * @param {number} x - Die horizontale Position in Pixeln.
+     * Creates a background object at the specified position.
+     * @param {string} imagePath - Path to the background image.
+     * @param {number} x - The horizontal position in pixels.
      */
     constructor(imagePath, x) {
         super().loadImage(imagePath);

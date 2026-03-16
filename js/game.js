@@ -4,11 +4,8 @@ import { SoundHub } from "../manager_classes/soundHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { ImageHub } from "../manager_classes/imageHub.js";
 
-/** @type {HTMLCanvasElement} */
 let canvas;
-/** @type {World} */
 let world;
-/** @type {Keyboard} */
 let keyboard = new Keyboard();
 
 //#region event listeners
@@ -21,7 +18,7 @@ document.getElementById("restartButtonWon").addEventListener("click", restartGam
 //#endregion event listeners
 
 /**
- * Startet das Spiel: blendet den Startbildschirm aus, laedt Bilder und initialisiert die Welt.
+ * Starts the game: hides the start screen, loads images and initializes the world.
  */
 async function startGame() {
     document.getElementById("startScreen").classList.add("displayNone");
@@ -36,7 +33,7 @@ async function startGame() {
 
 
 /**
- * Beendet das Spiel durch Neuladen der Seite.
+ * Quits the game by reloading the page.
  */
 async function quitGame() {
     await exitFullscreen();
@@ -44,7 +41,7 @@ async function quitGame() {
 }
 
 /**
- * Initialisiert das Canvas und erstellt eine neue Spielwelt-Instanz.
+ * Initializes the canvas and creates a new game world instance.
  */
 function init() {
     canvas = document.getElementById("canvas");
@@ -53,7 +50,7 @@ function init() {
 }
 
 /**
- * Schaltet den Mute-Zustand um und aktualisiert das Button-Symbol.
+ * Toggles the mute state and updates the button icon.
  */
 function toggleMute() {
     SoundHub.toggleMute();
@@ -61,7 +58,7 @@ function toggleMute() {
 }
 
 /**
- * Wendet den gespeicherten Mute-Zustand an und setzt das Button-Symbol.
+ * Applies the stored mute state and sets the button icon.
  */
 function muteState() {
     SoundHub.applyMute();
@@ -71,7 +68,7 @@ function muteState() {
 muteState();
 
 /**
- * Startet das Spiel neu: stoppt Intervalle, setzt Sounds zurueck und initialisiert neu.
+ * Restarts the game: stops intervals, resets sounds and reinitializes.
  */
 function restartGame() {
     IntervalHub.stopAllIntervals();
@@ -84,8 +81,8 @@ function restartGame() {
 }
 
 /**
- * Laedt alle Spielbilder vorab, um Laderuckler waehrend des Spiels zu vermeiden.
- * @returns {Promise<void[]>} Wird aufgeloest, wenn alle Bilder geladen sind.
+ * Preloads all game images to prevent stuttering during gameplay.
+ * @returns {Promise} Resolves when all images are loaded.
  */
 function preloadImages() {
     let paths = ImageHub.getAllPaths();
@@ -101,7 +98,7 @@ function preloadImages() {
 }
 
 /**
- * Aktiviert den Vollbildmodus auf Touch-Geraeten.
+ * Activates fullscreen mode on touch devices.
  */
 function enterFullscreen() {
     if (!matchMedia("(pointer: coarse)").matches) return;
@@ -111,7 +108,7 @@ function enterFullscreen() {
 }
 
 /**
- * Beendet den Vollbildmodus, falls aktiv.
+ * Exits fullscreen mode if active.
  */
 async function exitFullscreen() {
     document.getElementById("game").classList.remove("fullscreen");

@@ -8,8 +8,8 @@ import { Coin } from "../models/coin.class.js";
 import { Bottle } from "../models/bottle.class.js";
 
 /**
- * Erstellt und konfiguriert das erste Spiel-Level mit allen Objekten.
- * @returns {Level} Das vollstaendig initialisierte Level-1-Objekt.
+ * Creates and configures the first game level with all objects.
+ * @returns {Level} The fully initialized level 1 object.
  */
 export function createLevel1() {
     return new Level(
@@ -22,8 +22,8 @@ export function createLevel1() {
 }
 
 /**
- * Erstellt die Gegner-Liste fuer Level 1 (Huehner + Endboss).
- * @returns {MovableObject[]} Array aller Gegner.
+ * Creates the enemy list for level 1 (chickens + endboss).
+ * @returns {MovableObject[]} Array of all enemies.
  */
 function createEnemies() {
     let chickens = Array.from({ length: 4 }, () => new Chicken());
@@ -31,17 +31,16 @@ function createEnemies() {
 }
 
 /**
- * Erstellt eine bestimmte Anzahl von Wolken.
- * @param {number} count - Die Anzahl der zu erstellenden Wolken.
- * @returns {Cloud[]} Array der erstellten Wolken.
+ * Creates a set of clouds for the level.
+ * @returns {Cloud[]} Array of created clouds.
  */
 function createClouds() {
     return Array.from({ length: 15 }, () => new Cloud());
 }
 
 /**
- * Erstellt das initiale Hintergrund-Segment an Position 0.
- * @returns {BackgroundObject[]} Array der vier Hintergrund-Ebenen.
+ * Creates the initial background segment at position 0.
+ * @returns {BackgroundObject[]} Array of the four background layers.
  */
 function createInitialBackground() {
     return [
@@ -53,10 +52,10 @@ function createInitialBackground() {
 }
 
 /**
- * Erstellt eine bestimmte Anzahl von Sammelobjekten eines Typs.
- * @param {Function} ItemClass - Der Konstruktor des zu erstellenden Objekttyps.
- * @param {number} count - Die Anzahl der zu erstellenden Objekte.
- * @returns {DrawableObject[]} Array der erstellten Objekte.
+ * Creates a specified number of collectible objects of a given type.
+ * @param {Function} ItemClass - The constructor of the object type to create.
+ * @param {number} count - The number of objects to create.
+ * @returns {DrawableObject[]} Array of created objects.
  */
 function createItems(ItemClass, count) {
     return Array.from({ length: count }, () => new ItemClass());

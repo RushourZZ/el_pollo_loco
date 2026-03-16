@@ -4,29 +4,21 @@ import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
 /**
- * Spielbarer Charakter (Pepe) mit Bewegung, Animation und Zustandslogik.
+ * Playable character (Pepe) with movement, animation and state logic.
  * @extends MovableObject
  */
 export class Character extends MovableObject {
-    /** @type {number} */
     height = 280;
-    /** @type {number} */
     y = 170;
-    /** @type {World} */
     world;
-    /** @type {number} */
     speed = 10;
-    /** @type {boolean} */
     hasFrameForCollision = false;
-    /** @type {boolean} */
     deathAnimationStarted = false;
-    /** @type {number} */
     longIdleDetector = new Date().getTime();
-    /** @type {{top: number, left: number, right: number, bottom: number}} */
     offset = { top: 120, left: 20, right: 30, bottom: 15 };
 
     /**
-     * Erstellt den Charakter, laedt alle Animationsbilder und startet Physik + Animation.
+     * Creates the character, loads all animation images and starts physics + animation.
      */
     constructor() {
         super();
@@ -43,7 +35,7 @@ export class Character extends MovableObject {
 
     //#region character animation
     /**
-     * Startet die Animations-Intervalle fuer Idle-Zustand und Bewegung.
+     * Starts the animation intervals for idle state and movement.
      */
     animate() {
         IntervalHub.startInterval(() => this.handleIdle(), 7800 / 60);
@@ -55,7 +47,7 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Behandelt den Idle- und Long-Idle-Zustand des Charakters.
+     * Handles the idle and long idle state of the character.
      */
     handleIdle() {
         if (this.isLongIdle()) {
@@ -68,7 +60,7 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Verarbeitet die Bewegungseingaben (links, rechts, springen).
+     * Processes movement inputs (left, right, jump).
      */
     handleMovement() {
         if (this.isDead()) return;
@@ -87,7 +79,7 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Bestimmt den aktuellen Zustand und spielt die passende Animation ab.
+     * Determines the current state and plays the matching animation.
      */
     handleState() {
         if (this.isDead()) return this.checkDeath();
@@ -98,7 +90,7 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Spielt die Verletzt-Animation und den Schadenssound ab.
+     * Plays the hurt animation and damage sound.
      */
     playHurt() {
         this.characterAnimation(ImageHub.CHARACTER.hurt);
@@ -106,14 +98,14 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Spielt die Sprung-Animation ab.
+     * Plays the jump animation.
      */
     playJump() {
         this.characterAnimation(ImageHub.CHARACTER.jump);
     }
 
     /**
-     * Spielt die Lauf-Animation und den Laufsound ab, setzt den Idle-Timer zurueck.
+     * Plays the walk animation and sound, resets the idle timer.
      */
     playWalk() {
         this.characterAnimation(ImageHub.CHARACTER.walk);
@@ -122,8 +114,8 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Prueft, ob der Charakter im normalen Idle-Zustand ist (kein Input, nicht tot).
-     * @returns {boolean} True, wenn keine Taste gedrueckt und nicht tot.
+     * Checks whether the character is in normal idle state (no input, not dead).
+     * @returns {boolean} True if no key is pressed and not dead.
      */
     isInIdleAnimation() {
         return (
@@ -136,8 +128,8 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Prueft, ob der Charakter laenger als 5 Sekunden untaetig war.
-     * @returns {boolean} True bei langem Idle-Zustand.
+     * Checks whether the character has been inactive for more than 5 seconds.
+     * @returns {boolean} True on long idle state.
      */
     isLongIdle() {
         let timePassed = new Date().getTime() - this.longIdleDetector;
@@ -145,8 +137,8 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Wechselt zum naechsten Frame der uebergebenen Animationssequenz.
-     * @param {string[]} images - Array der Bildpfade fuer die Animation.
+     * Advances to the next frame of the given animation sequence.
+     * @param {string[]} images - Array of image paths for the animation.
      */
     characterAnimation(images) {
         let i = this.currentImage % images.length;
@@ -155,7 +147,7 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Loest die Todessequenz aus, wenn der Charakter stirbt.
+     * Triggers the death sequence when the character dies.
      */
     checkDeath() {
         if (this.deathAnimationStarted || this.world.gameOver) return;
@@ -168,7 +160,7 @@ export class Character extends MovableObject {
     }
 
     /**
-     * Spielt die Todes-Animation Frame fuer Frame ab und zeigt den Game-Over-Bildschirm.
+     * Plays the death animation frame by frame and shows the game over screen.
      */
     playDeathSequence() {
         ImageHub.CHARACTER.dead.forEach((frame, i) => {

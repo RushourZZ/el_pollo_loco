@@ -2,15 +2,14 @@ import { ImageHub } from "../manager_classes/imageHub.js";
 import { DrawableObject } from "./drawable-object.class.js";
 
 /**
- * Statusleiste fuer die Gesundheit des Spielers.
+ * Status bar for the player's health.
  * @extends DrawableObject
  */
 export class StatusBar extends DrawableObject {
-    /** @type {number} */
     percentage = 100;
 
     /**
-     * Erstellt die Gesundheits-Statusleiste mit Anfangswert 100%.
+     * Creates the health status bar with an initial value of 100%.
      */
     constructor() {
         super();
@@ -23,8 +22,8 @@ export class StatusBar extends DrawableObject {
     }
 
     /**
-     * Aktualisiert den Prozentwert und das angezeigte Bild der Statusleiste.
-     * @param {number} percentage - Der neue Prozentwert (0-100).
+     * Updates the percentage value and the displayed image of the status bar.
+     * @param {number} percentage - The new percentage value (0-100).
      */
     setPercentage(percentage) {
         this.percentage = percentage;
@@ -33,8 +32,8 @@ export class StatusBar extends DrawableObject {
     }
 
     /**
-     * Ermittelt den Bildindex anhand des aktuellen Prozentwerts.
-     * @returns {number} Index des passenden Statusleisten-Bildes (0-5).
+     * Determines the image index based on the current percentage value.
+     * @returns {number} Index of the matching status bar image (0-5).
      */
     resolveImageIndex() {
         let thresholds = [0, 20, 40, 60, 80, 100];

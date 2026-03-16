@@ -1,29 +1,23 @@
 /**
- * Verwaltet Tastatur- und Touch-Eingaben fuer die Spielsteuerung.
+ * Manages keyboard and touch inputs for game controls.
  */
 export class Keyboard {
-    /** @type {boolean} */
     LEFT = false;
-    /** @type {boolean} */
     RIGHT = false;
-    /** @type {boolean} */
     UP = false;
-    /** @type {boolean} */
     DOWN = false;
-    /** @type {boolean} */
     SPACE = false;
-    /** @type {boolean} */
     D = false;
 
     /**
-     * Erstellt die Keyboard-Instanz und registriert alle Event-Listener.
+     * Creates the keyboard instance and registers all event listeners.
      */
     constructor() {
         this.addEvents();
     }
 
     /**
-     * Registriert alle Tastatur- und Touch-Event-Listener.
+     * Registers all keyboard and touch event listeners.
      */
     addEvents() {
         this.addKeydownListener();
@@ -32,7 +26,7 @@ export class Keyboard {
     }
 
     /**
-     * Registriert den Keydown-Listener fuer die Tastatursteuerung.
+     * Registers the keydown listener for keyboard controls.
      */
     addKeydownListener() {
         let keyMap = {
@@ -49,7 +43,7 @@ export class Keyboard {
     }
 
     /**
-     * Registriert den Keyup-Listener zum Zuruecksetzen der Tastenzustaende.
+     * Registers the keyup listener to reset key states.
      */
     addKeyupListener() {
         let keyMap = {
@@ -65,7 +59,7 @@ export class Keyboard {
     }
 
     /**
-     * Bindet Touch-Events an die mobilen Steuerungselemente.
+     * Binds touch events to the mobile control elements.
      */
     addTouchEvents() {
         this.bindTouch("btnLeft", "LEFT");
@@ -75,9 +69,9 @@ export class Keyboard {
     }
 
     /**
-     * Bindet Touch-Start und Touch-End Events an einen Button.
-     * @param {string} id - Die DOM-ID des Touch-Buttons.
-     * @param {string} key - Der Tastenzustand, der gesetzt werden soll.
+     * Binds touchstart and touchend events to a button.
+     * @param {string} id - The DOM ID of the touch button.
+     * @param {string} key - The key state to set.
      */
     bindTouch(id, key) {
         let btn = document.getElementById(id);

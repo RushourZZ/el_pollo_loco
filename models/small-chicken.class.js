@@ -4,26 +4,20 @@ import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
 /**
- * Kleines Huhn, das vom Endboss als Projektil gespawnt wird.
+ * Small chicken spawned by the endboss as a projectile.
  * @extends MovableObject
  */
 export class SmallChicken extends MovableObject {
-    /** @type {number} */
     y = 400;
-    /** @type {number} */
     height = 40;
-    /** @type {number} */
     width = 40;
-    /** @type {boolean} */
     hasFrameForCollision = false;
-    /** @type {boolean} */
     deathSoundPlayed = false;
-    /** @type {{top: number, left: number, right: number, bottom: number}} */
     offset = { top: 5, left: 5, right: 5, bottom: 5 };
 
     /**
-     * Erstellt ein kleines Huhn an der angegebenen X-Position.
-     * @param {number} x - Die Startposition auf der X-Achse.
+     * Creates a small chicken at the given X position.
+     * @param {number} x - The starting X position.
      */
     constructor(x) {
         super();
@@ -36,7 +30,7 @@ export class SmallChicken extends MovableObject {
     }
 
     /**
-     * Startet Bewegungs- und Animations-Intervalle des kleinen Huhns.
+     * Starts the movement and animation intervals of the small chicken.
      */
     animate() {
         IntervalHub.startInterval(() => this.updateMovement(), 1000 / 60);
@@ -44,7 +38,7 @@ export class SmallChicken extends MovableObject {
     }
 
     /**
-     * Bewegt das kleine Huhn nach links, solange es lebt.
+     * Moves the small chicken to the left while alive.
      */
     updateMovement() {
         if (!this.isDead()) this.moveLeft();
@@ -55,7 +49,7 @@ export class SmallChicken extends MovableObject {
     }
 
     /**
-     * Zeigt die Todes- oder Lauf-Animation basierend auf dem Lebensstatus.
+     * Shows the death or walk animation based on the life status.
      */
     updateAnimation() {
         if (this.isDead()) {

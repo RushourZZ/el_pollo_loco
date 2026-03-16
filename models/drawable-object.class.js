@@ -1,27 +1,19 @@
 /**
- * Basisklasse fuer alle zeichenbaren Spielobjekte auf dem Canvas.
+ * Base class for all drawable game objects on the canvas.
  */
 export class DrawableObject {
-    /** @type {HTMLImageElement} */
     img;
-    /** @type {Object<string, HTMLImageElement>} */
     imageCache = {};
-    /** @type {number} */
     currentImage = 0;
-    /** @type {number} */
     x = 150;
-    /** @type {number} */
     y = 280;
-    /** @type {number} */
     height = 150;
-    /** @type {number} */
     width = 100;
-    /** @type {{top: number, left: number, right: number, bottom: number}} */
     offset = { top: 0, left: 0, right: 0, bottom: 0 };
 
     /**
-     * Laedt ein einzelnes Bild und setzt es als aktuelle Darstellung.
-     * @param {string} path - Der Dateipfad zum Bild.
+     * Loads a single image and sets it as the current sprite.
+     * @param {string} path - The file path to the image.
      */
     loadImage(path) {
         this.img = new Image();
@@ -29,17 +21,17 @@ export class DrawableObject {
     }
 
     /**
-     * Zeichnet das aktuelle Bild auf das Canvas.
-     * @param {CanvasRenderingContext2D} ctx - Der 2D-Rendering-Kontext.
+     * Draws the current image onto the canvas.
+     * @param {CanvasRenderingContext2D} ctx - The 2D rendering context.
      */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
     /**
-     * Laedt mehrere Bilder in den Cache und gibt ein Promise zurueck.
-     * @param {string[]} arr - Array von Bildpfaden.
-     * @returns {Promise<void[]>} Wird aufgeloest, wenn alle Bilder geladen sind.
+     * Loads multiple images into the cache and returns a promise.
+     * @param {string[]} arr - Array of image paths.
+     * @returns {Promise} Resolves when all images are loaded.
      */
     loadImages(arr) {
         let promises = arr.map((path) => {
@@ -54,8 +46,8 @@ export class DrawableObject {
     }
 
     /**
-     * Zeichnet einen Debug-Rahmen um die Kollisions-Hitbox des Objekts.
-     * @param {CanvasRenderingContext2D} ctx - Der 2D-Rendering-Kontext.
+     * Draws a debug frame around the collision hitbox.
+     * @param {CanvasRenderingContext2D} ctx - The 2D rendering context.
      */
     drawFrame(ctx) {
         if (!this.hasFrame) return;

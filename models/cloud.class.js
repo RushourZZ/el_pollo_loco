@@ -3,19 +3,16 @@ import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
 /**
- * Dekorative Wolke, die sich langsam nach links bewegt.
+ * Decorative cloud that slowly moves to the left.
  * @extends MovableObject
  */
 export class Cloud extends MovableObject {
-    /** @type {number} */
     y = 20;
-    /** @type {number} */
     width = 500;
-    /** @type {number} */
     height = 250;
 
     /**
-     * Erstellt eine Wolke an zufaelliger X-Position und startet die Bewegung.
+     * Creates a cloud at a random X position and starts the movement.
      */
     constructor() {
         super();
@@ -26,7 +23,7 @@ export class Cloud extends MovableObject {
     }
 
     /**
-     * Startet die kontinuierliche Linksbewegung der Wolke.
+     * Starts the continuous leftward movement of the cloud.
      */
     animate() {
         IntervalHub.startInterval(() => this.moveLeft(), 1000 / 60);

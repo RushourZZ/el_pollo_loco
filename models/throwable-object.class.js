@@ -4,23 +4,19 @@ import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
 /**
- * Werfbares Objekt (Salsa-Flasche) mit Wurfparabel und Splash-Animation.
+ * Throwable object (salsa bottle) with arc trajectory and splash animation.
  * @extends MovableObject
  */
 export class ThrowableObject extends MovableObject {
-    /** @type {boolean} */
     alwaysAboveGround = true;
-    /** @type {boolean} */
     hasFrameForCollision = false;
-    /** @type {boolean} */
     splashing = false;
-    /** @type {boolean} */
     hasSplashed = false;
 
     /**
-     * Erstellt ein Wurfgeschoss an der angegebenen Position und startet den Wurf.
-     * @param {number} x - Die Startposition auf der X-Achse.
-     * @param {number} y - Die Startposition auf der Y-Achse.
+     * Creates a throwable at the given position and initiates the throw.
+     * @param {number} x - The starting X position.
+     * @param {number} y - The starting Y position.
      */
     constructor(x, y) {
         super();
@@ -36,9 +32,9 @@ export class ThrowableObject extends MovableObject {
     }
 
     /**
-     * Startet die Wurfbewegung mit Schwerkraft und horizontaler Geschwindigkeit.
-     * @param {number} x - Die X-Startposition.
-     * @param {number} y - Die Y-Startposition.
+     * Starts the throw motion with gravity and horizontal velocity.
+     * @param {number} x - The starting X position.
+     * @param {number} y - The starting Y position.
      */
     throw(x, y) {
         this.x = x;
@@ -54,7 +50,7 @@ export class ThrowableObject extends MovableObject {
 
     // #region splash animation
     /**
-     * Startet die Splash-Animation beim Aufprall und spielt den Bruchsound.
+     * Starts the splash animation on impact and plays the break sound.
      */
     startSplash() {
         if (this.splashing) return;
@@ -66,7 +62,7 @@ export class ThrowableObject extends MovableObject {
     }
 
     /**
-     * Spielt die Splash-Animation Frame fuer Frame und markiert das Ende.
+     * Plays the splash animation frame by frame and marks the end.
      */
     splashAnimation() {
         if (this.currentImage >= ImageHub.SALSA_BOTTLE.splash.length) {
@@ -79,7 +75,7 @@ export class ThrowableObject extends MovableObject {
     }
 
     /**
-     * Animations-Loop: wechselt zwischen Rotations- und Splash-Animation.
+     * Animation loop: switches between rotation and splash animation.
      */
     animate() {
         IntervalHub.startInterval(() => {

@@ -3,19 +3,17 @@ import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { DrawableObject } from "./drawable-object.class.js";
 
 /**
- * Sammelbare Salsa-Flasche auf dem Boden.
+ * Collectible salsa bottle on the ground.
  * @extends DrawableObject
  */
 export class Bottle extends DrawableObject {
-    /** @type {number} */
     height = 100;
-    /** @type {number} */
     width = 100;
     hasFrameForCollision = false;
     offset = { top: 20, bottom: 20, left: 50, right: 30 };
 
     /**
-     * Erstellt eine Flasche an zufaelliger X-Position auf Bodenhoehe.
+     * Creates a bottle at a random X position at ground level.
      */
     constructor() {
         super();
@@ -25,7 +23,7 @@ export class Bottle extends DrawableObject {
     }
 
     /**
-     * Startet die Rotationsanimation der Flasche (aktuell nicht im Konstruktor aufgerufen).
+     * Starts the rotation animation of the bottle (not called in constructor).
      */
     animate() {
         IntervalHub.startInterval(() => {

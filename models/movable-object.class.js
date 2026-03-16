@@ -2,25 +2,19 @@ import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { DrawableObject } from "./drawable-object.class.js";
 
 /**
- * Basisklasse fuer alle beweglichen Spielobjekte mit Physik und Kollisionserkennung.
+ * Base class for all movable game objects with physics and collision detection.
  * @extends DrawableObject
  */
 export class MovableObject extends DrawableObject {
-    /** @type {number} */
     speed = 0.15;
-    /** @type {boolean} */
     otherDirection = false;
-    /** @type {number} */
     speedY = 0;
-    /** @type {number} */
     acceleration = 2;
-    /** @type {number} */
     energy = 100;
-    /** @type {number} */
     lastHit = 0;
 
     /**
-     * Aktiviert die Schwerkraft-Simulation fuer dieses Objekt.
+     * Enables gravity simulation for this object.
      */
     applyGravity() {
         IntervalHub.startInterval(() => {
@@ -35,17 +29,17 @@ export class MovableObject extends DrawableObject {
     }
 
     /**
-     * Prueft, ob sich das Objekt ueber dem Boden befindet.
-     * @returns {boolean} True, wenn das Objekt in der Luft ist.
+     * Checks whether the object is above ground level.
+     * @returns {boolean} True if the object is airborne.
      */
     isAboveGround() {
         return this.alwaysAboveGround || this.y < 170;
     }
 
     /**
-     * Prueft, ob dieses Objekt mit einem anderen kollidiert (AABB mit Offsets).
-     * @param {MovableObject} mo - Das andere Spielobjekt.
-     * @returns {boolean} True bei Kollision.
+     * Checks whether this object collides with another (AABB with offsets).
+     * @param {MovableObject} mo - The other game object.
+     * @returns {boolean} True on collision.
      */
     isColliding(mo) {
         return (
@@ -57,7 +51,7 @@ export class MovableObject extends DrawableObject {
     }
 
     /**
-     * Reduziert die Energie des Objekts um 5 und speichert den Trefferzeitpunkt.
+     * Reduces the object's energy by 5 and records the hit timestamp.
      */
     hit() {
         this.energy -= 5;
@@ -69,16 +63,16 @@ export class MovableObject extends DrawableObject {
     }
 
     /**
-     * Prueft, ob das Objekt keine Energie mehr hat.
-     * @returns {boolean} True, wenn Energie gleich 0.
+     * Checks whether the object has no energy left.
+     * @returns {boolean} True if energy equals 0.
      */
     isDead() {
         return this.energy == 0;
     }
 
     /**
-     * Prueft, ob das Objekt kuerzlich getroffen wurde (Unverwundbarkeitsphase).
-     * @returns {boolean} True innerhalb von 300ms nach dem letzten Treffer.
+     * Checks whether the object was recently hit (invulnerability phase).
+     * @returns {boolean} True within 300ms after the last hit.
      */
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
@@ -86,7 +80,7 @@ export class MovableObject extends DrawableObject {
     }
 
     /**
-     * Bewegt das Objekt nach rechts und setzt die Blickrichtung.
+     * Moves the object to the right and updates facing direction.
      */
     moveRight() {
         this.x += this.speed;
@@ -94,7 +88,7 @@ export class MovableObject extends DrawableObject {
     }
 
     /**
-     * Bewegt das Objekt nach links und setzt die Blickrichtung.
+     * Moves the object to the left and updates facing direction.
      */
     moveLeft() {
         this.x -= this.speed;
@@ -102,7 +96,7 @@ export class MovableObject extends DrawableObject {
     }
 
     /**
-     * Laesst das Objekt springen, indem die vertikale Geschwindigkeit gesetzt wird.
+     * Makes the object jump by setting vertical speed.
      */
     jump() {
         this.speedY = 30;

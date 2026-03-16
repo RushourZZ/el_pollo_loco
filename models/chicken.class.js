@@ -4,25 +4,19 @@ import { IntervalHub } from "../manager_classes/intervalHub.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
 /**
- * Normaler Huehner-Gegner mit Lauf- und Todes-Animation.
+ * Normal chicken enemy with walk and death animation.
  * @extends MovableObject
  */
 export class Chicken extends MovableObject {
-    /** @type {number} */
     y = 370;
-    /** @type {number} */
     height = 70;
-    /** @type {number} */
     width = 70;
-    /** @type {boolean} */
     hasFrameForCollision = false;
-    /** @type {boolean} */
     deadSoundPlayed = false;
-    /** @type {{top: number, left: number, right: number, bottom: number}} */
     offset = { top: 5, left: 5, right: 5, bottom: 5 };
 
     /**
-     * Erstellt ein Huhn an zufaelliger Position mit zufaelliger Geschwindigkeit.
+     * Creates a chicken at a random position with random speed.
      */
     constructor() {
         super();
@@ -36,7 +30,7 @@ export class Chicken extends MovableObject {
 
     //#region chicken animation
     /**
-     * Startet Bewegungs- und Animations-Intervalle des Huhns.
+     * Starts the movement and animation intervals of the chicken.
      */
     animate() {
         IntervalHub.startInterval(() => this.updateMovement(), 1000 / 60);
@@ -44,14 +38,14 @@ export class Chicken extends MovableObject {
     }
 
     /**
-     * Bewegt das Huhn nach links, solange es lebt.
+     * Moves the chicken to the left while alive.
      */
     updateMovement() {
         if (!this.isDead()) this.moveLeft();
     }
 
     /**
-     * Zeigt die Todes- oder Lauf-Animation basierend auf dem Lebensstatus.
+     * Shows the death or walk animation based on the life status.
      */
     updateAnimation() {
         if (this.isDead()) {
@@ -68,7 +62,7 @@ export class Chicken extends MovableObject {
     }
 
     /**
-     * Bewegt das Huhn um seine Geschwindigkeit nach links.
+     * Moves the chicken left by its speed value.
      */
     moveLeft() {
         this.x -= this.speed;

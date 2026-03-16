@@ -1,27 +1,21 @@
 /**
- * Repraesentiert ein Spiel-Level mit allen enthaltenen Objekten.
+ * Represents a game level containing all its objects.
  */
 export class Level {
-    /** @type {MovableObject[]} */
     enemies;
-    /** @type {Cloud[]} */
     clouds;
-    /** @type {BackgroundObject[]} */
     backgroundObjects;
-    /** @type {Coin[]} */
     coins;
-    /** @type {Bottle[]} */
     bottles;
-    /** @type {number} */
     level_end_x = 3000;
 
     /**
-     * Erstellt ein neues Level mit allen Spielobjekten.
-     * @param {MovableObject[]} enemies - Array der Gegner im Level.
-     * @param {Cloud[]} clouds - Array der Wolken.
-     * @param {BackgroundObject[]} backgroundObjects - Array der Hintergrundobjekte.
-     * @param {Coin[]} coins - Array der Muenzen.
-     * @param {Bottle[]} bottles - Array der Flaschen.
+     * Creates a new level with all game objects.
+     * @param {MovableObject[]} enemies - Array of enemies in the level.
+     * @param {Cloud[]} clouds - Array of clouds.
+     * @param {BackgroundObject[]} backgroundObjects - Array of background objects.
+     * @param {Coin[]} coins - Array of coins.
+     * @param {Bottle[]} bottles - Array of bottles.
      */
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {
         this.enemies = enemies;

@@ -3,20 +3,17 @@ import { ImageHub } from "../manager_classes/imageHub.js";
 import { IntervalHub } from "../manager_classes/intervalHub.js";
 
 /**
- * Sammelbare Muenze mit Rotationsanimation.
+ * Collectible coin with rotation animation.
  * @extends DrawableObject
  */
 export class Coin extends DrawableObject {
-    /** @type {number} */
     height = 100;
-    /** @type {number} */
     width = 100;
-    /** @type {{top: number, bottom: number, left: number, right: number}} */
     offset = { top: 40, bottom: 40, left: 40, right: 40 };
     hasFrameForCollision = false;
 
     /**
-     * Erstellt eine Muenze an zufaelliger Position und startet die Animation.
+     * Creates a coin at a random position and starts the animation.
      */
     constructor() {
         super();
@@ -28,7 +25,7 @@ export class Coin extends DrawableObject {
     }
 
     /**
-     * Startet die Rotationsanimation der Muenze.
+     * Starts the rotation animation of the coin.
      */
     animate() {
         IntervalHub.startInterval(() => {

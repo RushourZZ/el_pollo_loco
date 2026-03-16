@@ -5,35 +5,24 @@ import { SmallChicken } from "./small-chicken.class.js";
 import { SoundHub } from "../manager_classes/soundHub.js";
 
 /**
- * Endboss-Gegner mit Alarmierung, Angriff und Bewegungslogik.
+ * Endboss enemy with alert, attack and movement logic.
  * @extends MovableObject
  */
 export class Endboss extends MovableObject {
-    /** @type {number} */
     height = 500;
-    /** @type {number} */
     width = 300;
-    /** @type {number} */
     y = -10;
-    /** @type {boolean} */
     hasFrameForCollision = false;
-    /** @type {boolean} */
     isAlerted = false;
-    /** @type {boolean} */
     alertPlayed = false;
-    /** @type {number} */
     lastAttack = 0;
-    /** @type {number} */
     lastDirectionChange = 0;
-    /** @type {boolean} */
     movingRight = true;
-    /** @type {number} */
     speed = 1.5;
-    /** @type {{top: number, bottom: number, left: number, right: number}} */
     offset = { top: 60, bottom: 10, left: 30, right: 30 };
 
     /**
-     * Erstellt den Endboss, laedt alle Animationsbilder und startet die Animation.
+     * Creates the endboss, loads all animation images and starts the animation.
      */
     constructor() {
         super();
@@ -48,7 +37,7 @@ export class Endboss extends MovableObject {
     }
 
     /**
-     * Startet Bewegungs- und Animations-Intervalle des Endbosses.
+     * Starts the movement and animation intervals of the endboss.
      */
     animate() {
         IntervalHub.startInterval(() => {
@@ -60,7 +49,7 @@ export class Endboss extends MovableObject {
     }
 
     /**
-     * Steuert die Hin-und-Her-Bewegung des Endbosses nach Alarmierung.
+     * Controls the back-and-forth movement of the endboss after being alerted.
      */
     moveEndboss() {
         if (!this.isAlerted || this.isDead()) return;
@@ -79,7 +68,7 @@ export class Endboss extends MovableObject {
     }
 
     /**
-     * Waehlt die passende Animation basierend auf dem aktuellen Zustand.
+     * Selects the appropriate animation based on the current state.
      */
     updateAnimation() {
         if (this.isDead()) return this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.dead);
@@ -90,7 +79,7 @@ export class Endboss extends MovableObject {
     }
 
     /**
-     * Spielt die Alarm-Animation einmalig ab und markiert sie als abgeschlossen.
+     * Plays the alert animation once and marks it as complete.
      */
     playAlert() {
         this.endbossAnimation(ImageHub.ENEMIE_BOSS_CHICKEN.alert);
@@ -101,7 +90,7 @@ export class Endboss extends MovableObject {
     }
 
     /**
-     * Versetzt den Endboss in den alarmierten Zustand und spielt den Annaehrungssound.
+     * Puts the endboss into the alerted state and plays the approach sound.
      */
     triggerAlert() {
         if (this.isAlerted) return;
@@ -112,8 +101,8 @@ export class Endboss extends MovableObject {
     }
 
     /**
-     * Versucht einen Angriff: spawnt kleine Huehner mit Cooldown-Pruefung.
-     * @param {World} world - Referenz auf die Spielwelt fuer das Spawnen.
+     * Attempts an attack by spawning small chickens with cooldown check.
+     * @param {World} world - Reference to the game world for spawning.
      */
     tryAttack(world) {
         let now = Date.now();
@@ -133,8 +122,8 @@ export class Endboss extends MovableObject {
     }
 
     /**
-     * Wechselt zum naechsten Frame der uebergebenen Endboss-Animationssequenz.
-     * @param {string[]} images - Array der Bildpfade fuer die Animation.
+     * Advances to the next frame of the given endboss animation sequence.
+     * @param {string[]} images - Array of image paths for the animation.
      */
     endbossAnimation(images) {
         let i = this.currentImage % images.length;

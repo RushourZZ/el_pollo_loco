@@ -2,15 +2,14 @@ import { ImageHub } from "../manager_classes/imageHub.js";
 import { DrawableObject } from "./drawable-object.class.js";
 
 /**
- * Statusleiste fuer die gesammelten Flaschen des Spielers.
+ * Status bar for the player's collected bottles.
  * @extends DrawableObject
  */
 export class BottleStatusBar extends DrawableObject {
-    /** @type {number} */
     percentage = 0;
 
     /**
-     * Erstellt die Flaschen-Statusleiste mit Anfangswert 0%.
+     * Creates the bottle status bar with an initial value of 0%.
      */
     constructor() {
         super();
@@ -23,8 +22,8 @@ export class BottleStatusBar extends DrawableObject {
     }
 
     /**
-     * Aktualisiert den Prozentwert und das angezeigte Bild der Flaschenleiste.
-     * @param {number} percentage - Der neue Prozentwert (0-100).
+     * Updates the percentage value and the displayed image of the bottle bar.
+     * @param {number} percentage - The new percentage value (0-100).
      */
     setPercentage(percentage) {
         this.percentage = percentage;
@@ -33,8 +32,8 @@ export class BottleStatusBar extends DrawableObject {
     }
 
     /**
-     * Ermittelt den Bildindex anhand des aktuellen Prozentwerts.
-     * @returns {number} Index des passenden Statusleisten-Bildes (0-5).
+     * Determines the image index based on the current percentage value.
+     * @returns {number} Index of the matching status bar image (0-5).
      */
     resolveImageIndex() {
         if (this.percentage >= 100) return 5;
