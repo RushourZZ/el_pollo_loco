@@ -78,11 +78,11 @@ export class MovableObject extends DrawableObject {
 
     /**
      * Prueft, ob das Objekt kuerzlich getroffen wurde (Unverwundbarkeitsphase).
-     * @returns {boolean} True innerhalb von 100ms nach dem letzten Treffer.
+     * @returns {boolean} True innerhalb von 300ms nach dem letzten Treffer.
      */
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;
-        return timePassed < 100;
+        return timePassed < 300;
     }
 
     /**

@@ -100,7 +100,7 @@ export class World {
      */
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !enemy.isDead()) {
+            if (this.character.isColliding(enemy) && !enemy.isDead() && !this.character.isHurt()) {
                 if (this.isStompingEnemy(enemy)) {
                     enemy.energy = 0;
                     this.character.speedY = 15;
