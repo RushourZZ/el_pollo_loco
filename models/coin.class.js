@@ -35,6 +35,6 @@ export class Coin extends DrawableObject {
             let i = this.currentImage % ImageHub.ICONS.coin.length;
             this.img = this.imageCache[ImageHub.ICONS.coin[i]];
             this.currentImage++;
-        }, 1000 / 60);
+        }, 200);
     }
 }
