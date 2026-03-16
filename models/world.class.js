@@ -254,6 +254,9 @@ export class World {
         this.drawGameObjects();
         this.ctx.translate(-this.camera_x, 0);
         this.drawHUD();
+        this.ctx.translate(this.camera_x, 0);
+        this.addToMap(this.character);
+        this.ctx.translate(-this.camera_x, 0);
         requestAnimationFrame(() => this.draw());
     }
 
@@ -273,7 +276,6 @@ export class World {
      * Draws all dynamic game objects (character, clouds, enemies, items).
      */
     drawGameObjects() {
-        this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
