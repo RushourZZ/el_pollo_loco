@@ -50,6 +50,10 @@ export class SmallChicken extends MovableObject {
         if (!this.isDead()) this.moveLeft();
     }
 
+    moveLeft() {
+        this.x -= this.speed;
+    }
+
     /**
      * Zeigt die Todes- oder Lauf-Animation basierend auf dem Lebensstatus.
      */
