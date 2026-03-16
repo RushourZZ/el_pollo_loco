@@ -45,6 +45,7 @@ h1 {
 }
 
 canvas {
+    display: block;
     border-radius: 10px;
     border: 1px solid #e85d04;
 }
@@ -400,3 +401,38 @@ footer a:active {
     }
 }
 /* #endregion mobile fullscreen */
+
+/* #region responsive canvas */
+@media (max-width: 1200px) {
+    body {
+        height: 100dvh;
+        min-height: 0;
+        padding: 8px 16px;
+    }
+
+    #game {
+        width: min(100%, calc((100dvh - 100px) * 1.5), 720px);
+        height: auto;
+        aspect-ratio: 3 / 2;
+        margin: 0 auto;
+    }
+
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    #controls {
+        margin-top: 8px;
+        padding: 10px;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    footer {
+        margin-top: 8px;
+        padding: 10px 16px;
+    }
+}
+/* #endregion responsive canvas */
