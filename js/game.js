@@ -25,6 +25,7 @@ document.getElementById("restartButtonWon").addEventListener("click", restartGam
  */
 async function startGame() {
     document.getElementById("startScreen").classList.add("displayNone");
+    enterFullscreen();
     await preloadImages();
     init();
     SoundHub.gameStart.play();
@@ -32,10 +33,13 @@ async function startGame() {
     SoundHub.BACKGROUND.loop = true;
 }
 
+
+
 /**
  * Beendet das Spiel durch Neuladen der Seite.
  */
-function quitGame() {
+async function quitGame() {
+    await exitFullscreen();
     location.reload();
 }
 
@@ -95,6 +99,26 @@ function preloadImages() {
     });
     return Promise.all(promises);
 }
+
+/**
+ * Aktiviert den Vollbildmodus auf Touch-Geraeten.
+ */
+function enterFullscreen() {
+    if (!matchMedia("(pointer: coarse)").matches) return;
+    let game = document.getElementById("game");
+    game.classList.add("fullscreen");
+    if (game.requestFullscreen) game.requestFullscreen();
+}
+
+/**
+ * Beendet den Vollbildmodus, falls aktiv.
+ */
+async function exitFullscreen() {
+    document.getElementById("game").classList.remove("fullscreen");
+    if (document.fullscreenElement) await document.exitFullscreen();
+}
+
+
 
 window.init = init;
 window.keyboard = keyboard;
