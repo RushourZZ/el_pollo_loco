@@ -80,6 +80,7 @@ export class Character extends MovableObject {
         }
         if (this.world.keyboard.UP && !this.isAboveGround()) {
             this.jump();
+            this.longIdleDetector = new Date().getTime();
             SoundHub.CHARACTER.jump.currentTime = 0;
             SoundHub.CHARACTER.jump.play();
         }
@@ -127,6 +128,7 @@ export class Character extends MovableObject {
     isInIdleAnimation() {
         return (
             !this.isDead() &&
+            !this.isAboveGround() &&
             !this.world.keyboard.RIGHT &&
             !this.world.keyboard.LEFT &&
             !this.world.keyboard.UP
