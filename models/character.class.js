@@ -11,7 +11,7 @@ export class Character extends MovableObject {
     /** @type {number} */
     height = 280;
     /** @type {number} */
-    y = 155;
+    y = 170;
     /** @type {World} */
     world;
     /** @type {number} */

@@ -11,6 +11,8 @@ export class Bottle extends DrawableObject {
     height = 100;
     /** @type {number} */
     width = 100;
+    hasFrameForCollision = false;
+    offset = { top: 20, bottom: 20, left: 50, right: 30 };
 
     /**
      * Erstellt eine Flasche an zufaelliger X-Position auf Bodenhoehe.

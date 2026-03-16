@@ -9,7 +9,7 @@ import { SoundHub } from "../manager_classes/soundHub.js";
  */
 export class SmallChicken extends MovableObject {
     /** @type {number} */
-    y = 385;
+    y = 400;
     /** @type {number} */
     height = 40;
     /** @type {number} */

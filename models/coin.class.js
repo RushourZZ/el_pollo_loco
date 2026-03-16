@@ -12,7 +12,8 @@ export class Coin extends DrawableObject {
     /** @type {number} */
     width = 100;
     /** @type {{top: number, bottom: number, left: number, right: number}} */
-    offset = { top: 10, bottom: 10, left: 10, right: 10 };
+    offset = { top: 40, bottom: 40, left: 40, right: 40 };
+    hasFrameForCollision = false;
 
     /**
      * Erstellt eine Muenze an zufaelliger Position und startet die Animation.

@@ -29,6 +29,7 @@ export class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             } else {
                 this.speedY = 0;
+                this.y = 170;
             }
         }, 1000 / 60);
     }
@@ -38,7 +39,7 @@ export class MovableObject extends DrawableObject {
      * @returns {boolean} True, wenn das Objekt in der Luft ist.
      */
     isAboveGround() {
-        return this.alwaysAboveGround || this.y < 180;
+        return this.alwaysAboveGround || this.y < 170;
     }
 
     /**
